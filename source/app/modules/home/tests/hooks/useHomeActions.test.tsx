@@ -17,16 +17,17 @@ function wrapper({ children }: { children: ReactNode }) {
 }
 
 describe("useHomeActions", () => {
-  it("carga destacados y contenido", async () => {
+  it("lee del store global y marca loading=false (store vacío en test)", () => {
     const { result } = renderHook(() => ({ actions: useHomeActions(), state: useHomeProvider() }), {
       wrapper
     });
 
-    await act(async () => {
-      await result.current.actions.handleLoadHome();
+    act(() => {
+      result.current.actions.handleLoadHome();
     });
 
     expect(result.current.state?.getHomeState.loading).toBe(false);
-    expect(result.current.state?.getHomeState.featured.length).toBeGreaterThan(0);
+    expect(result.current.state?.getHomeState.featured).toEqual([]);
+    expect(result.current.state?.getHomeState.content).toBeNull();
   });
 });

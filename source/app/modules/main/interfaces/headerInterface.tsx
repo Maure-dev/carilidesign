@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
 import { useSession } from "@app/modules/main/hooks/useSession";
-import { isFirebaseConfigured } from "@app/modules/main/services/firebase";
 import LogoInterface from "./logoInterface";
 import CartBadgeInterface from "./cartBadgeInterface";
 
@@ -25,13 +24,10 @@ const MOBILE_NAV = [
   { to: "/contacto", label: "Contacto" }
 ];
 
-// En modo demo (sin Firebase) se muestra el acceso a Admin para poder previsualizar el panel.
-const DEMO_MODE = !isFirebaseConfigured;
-
 // Header del sitio: logo, navegación (desktop + menú móvil a pantalla completa), cuenta/admin y carrito.
 export default function HeaderInterface() {
   const { isAuthenticated, isAdmin } = useSession();
-  const showAdmin = isAdmin || DEMO_MODE;
+  const showAdmin = isAdmin;
   const [menuOpen, setMenuOpen] = useState(false);
 
   const closeMenu = () => setMenuOpen(false);
@@ -57,7 +53,7 @@ export default function HeaderInterface() {
 
   const accountTo = isAuthenticated ? "/mi-cuenta" : "/ingresar";
   const accountLabel = isAuthenticated ? "Mi cuenta" : "Ingresar";
-  const adminLabel = `Admin${DEMO_MODE && !isAdmin ? " (demo)" : ""}`;
+  const adminLabel = "Admin";
 
   return (
     <>

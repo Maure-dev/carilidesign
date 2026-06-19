@@ -1,24 +1,19 @@
-import type { ContactFormType } from "@app/modules/contact/entities/entities";
+import type { ContactFormType, ContactInfoType } from "@app/modules/contact/entities/entities";
 import { useContactProvider } from "@app/modules/contact/states/contactProvider";
 import { useNotification } from "@app/modules/main/hooks/useNotification";
-import {
-  getContactInfo,
-  saveContactMessage,
-  sendContactEmail
-} from "@app/modules/contact/services/services";
+import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
+import { saveContactMessage, sendContactEmail } from "@app/modules/contact/services/services";
 import { validateContactForm } from "@app/modules/contact/helpers/validateContactForm";
 
 export const useContactActions = () => {
   const { getContactState, setContactState } = useContactProvider();
   const { onNotification } = useNotification();
+  const { getSection } = useSiteContent();
 
-  const handleLoadInfo = async (): Promise<void> => {
-    try {
-      const info = await getContactInfo();
-      setContactState((s) => ({ ...s, info: info }));
-    } catch {
-      /* se mantiene la info por defecto */
-    }
+  // La info de contacto ya vino en el bootstrap: se lee del store global.
+  const handleLoadInfo = (): void => {
+    const info = getSection<ContactInfoType>("contact");
+    setContactState((s) => ({ ...s, info: info }));
   };
 
   const handleChangeField = (field: keyof ContactFormType, value: string): void => {

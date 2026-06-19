@@ -1,0 +1,10 @@
+{
+  "name": "carili-scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Scripts de bootstrap (admin claim, seed de productos) para Firebase",
+  "dependencies": {
+    "firebase-admin": "^13.0.0"
+  }
+}

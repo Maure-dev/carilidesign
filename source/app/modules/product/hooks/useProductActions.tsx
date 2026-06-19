@@ -4,7 +4,7 @@ import { useProductProvider } from "@app/modules/product/states/productProvider"
 import { useNotification } from "@app/modules/main/hooks/useNotification";
 import { useRouter } from "@app/modules/main/hooks/useRouter";
 import { useCart } from "@app/modules/main/hooks/useCart";
-import { getProductBySlug } from "@app/modules/product/services/services";
+import { useCatalog } from "@app/modules/main/hooks/useCatalog";
 import { computePrice } from "@app/modules/product/helpers/computePrice";
 import {
   buildSelectionSnapshot,
@@ -27,23 +27,19 @@ export const useProductActions = () => {
   const { onNotification } = useNotification();
   const router = useRouter();
   const { addItem } = useCart();
+  const { bySlug } = useCatalog();
 
-  const handleLoadProduct = async (slug: string): Promise<void> => {
-    setProductState((s) => ({ ...s, loading: true }));
-    try {
-      const product = await getProductBySlug(slug);
-      setProductState((s) => ({
-        ...s,
-        product: product,
-        selection: product ? defaultSelection(product) : {},
-        galleryIndex: 0,
-        quantity: 1,
-        loading: false
-      }));
-    } catch {
-      onNotification(false, "No se pudo cargar el producto.");
-      setProductState((s) => ({ ...s, loading: false, error: "load_error" }));
-    }
+  // El producto ya vino en el bootstrap: se busca por slug en el store global.
+  const handleLoadProduct = (slug: string): void => {
+    const product = bySlug(slug);
+    setProductState((s) => ({
+      ...s,
+      product: product,
+      selection: product ? defaultSelection(product) : {},
+      galleryIndex: 0,
+      quantity: 1,
+      loading: false
+    }));
   };
 
   const handleSelectChoice = (optionId: string, choiceId: string): void => {

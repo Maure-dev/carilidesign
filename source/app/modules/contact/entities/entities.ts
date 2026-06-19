@@ -20,7 +20,7 @@ export type ContactDataType = {
   errors: Partial<Record<keyof ContactFormType, string>>;
   sending: boolean;
   sent: boolean;
-  info: ContactInfoType;
+  info: ContactInfoType | null;
 };
 
 export type ContactContextType = {

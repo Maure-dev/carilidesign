@@ -1,3 +1,4 @@
+import { type ChangeEvent, useState } from "react";
 import type {
   AdminContentDocType,
   AdminContentKindType,
@@ -8,6 +9,8 @@ import type {
 } from "@app/modules/admin/entities/entities";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 
+type UploadImageType = (file: File) => Promise<string>;
+
 type Props = {
   sections: AdminContentSectionType[];
   activeSlug: string;
@@ -15,6 +18,7 @@ type Props = {
   saving: boolean;
   onSelectSection: (slug: string) => void;
   onChange: (patch: Partial<AdminContentDocType>) => void;
+  onUploadImage: UploadImageType;
   onSave: () => void;
 };
 
@@ -64,7 +68,95 @@ function Field({
   );
 }
 
-function HomeForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props["onChange"] }) {
+// Campo de imagen: subida a Cloudinary (archivo) o URL pegada como alternativa, con preview.
+function ImageField({
+  label,
+  value,
+  onChange,
+  onUpload
+}: {
+  label: string;
+  value: string;
+  onChange: (value: string) => void;
+  onUpload: UploadImageType;
+}) {
+  const [uploading, setUploading] = useState(false);
+
+  const handleFile = async (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    e.target.value = "";
+    if (!file) {
+      return;
+    }
+    setUploading(true);
+    try {
+      const url = await onUpload(file);
+      onChange(url);
+    } catch {
+      // El error de subida ya se notifica desde el handler de Admin.
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="text-sm text-ink">{label}</span>
+      {value ? (
+        <img
+          src={value}
+          alt=""
+          className="h-32 w-auto rounded-buttons border border-sand object-cover"
+        />
+      ) : null}
+      <label
+        className={`inline-flex w-fit cursor-pointer items-center gap-2 rounded-buttons bg-clay px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-clay-deep ${
+          uploading ? "pointer-events-none opacity-70" : ""
+        }`}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="1.1rem"
+          height="1.1rem"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          aria-hidden="true"
+        >
+          <path d="M12 16 V4" />
+          <path d="M7 9 L12 4 L17 9" />
+          <path d="M5 20 H19" />
+        </svg>
+        {uploading ? "Subiendo imagen…" : "Subir imagen"}
+        <input
+          type="file"
+          accept="image/*"
+          disabled={uploading}
+          onChange={handleFile}
+          className="hidden"
+        />
+      </label>
+      <input
+        className={inputClass}
+        value={value}
+        placeholder="…o pegá una URL de imagen"
+        onChange={(e) => onChange(e.target.value)}
+      />
+    </div>
+  );
+}
+
+function HomeForm({
+  doc,
+  onChange,
+  onUpload
+}: {
+  doc: AdminContentDocType;
+  onChange: Props["onChange"];
+  onUpload: UploadImageType;
+}) {
   const valueProps = doc.valueProps ?? [];
   const setValueProps = (next: AdminValuePropType[]) => onChange({ valueProps: next });
 
@@ -81,10 +173,11 @@ function HomeForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props
         multiline
         onChange={(v) => onChange({ heroSubtitle: v })}
       />
-      <Field
-        label="Imagen del hero (URL)"
+      <ImageField
+        label="Imagen del hero"
         value={doc.heroImageUrl ?? ""}
         onChange={(v) => onChange({ heroImageUrl: v })}
+        onUpload={onUpload}
       />
       <Field
         label="Título del proceso"
@@ -97,10 +190,11 @@ function HomeForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props
         multiline
         onChange={(v) => onChange({ processText: v })}
       />
-      <Field
-        label="Imagen del proceso (URL)"
+      <ImageField
+        label="Imagen del proceso"
         value={doc.processImageUrl ?? ""}
         onChange={(v) => onChange({ processImageUrl: v })}
+        onUpload={onUpload}
       />
 
       <div className="flex flex-col gap-2">
@@ -151,7 +245,15 @@ function HomeForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props
   );
 }
 
-function PageForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props["onChange"] }) {
+function PageForm({
+  doc,
+  onChange,
+  onUpload
+}: {
+  doc: AdminContentDocType;
+  onChange: Props["onChange"];
+  onUpload: UploadImageType;
+}) {
   return (
     <div className="flex flex-col gap-4">
       <Field label="Título" value={doc.title ?? ""} onChange={(v) => onChange({ title: v })} />
@@ -167,10 +269,11 @@ function PageForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props
         multiline
         onChange={(v) => onChange({ body: v.split("\n") })}
       />
-      <Field
-        label="Imagen (URL)"
+      <ImageField
+        label="Imagen"
         value={doc.imageUrl ?? ""}
         onChange={(v) => onChange({ imageUrl: v })}
+        onUpload={onUpload}
       />
     </div>
   );
@@ -308,6 +411,8 @@ function ShippingForm({
           />
           <input
             type="number"
+            min="0"
+            step="0.01"
             className={`${inputClass} sm:w-40`}
             placeholder="Precio (ARS)"
             value={opt.priceArs}
@@ -342,10 +447,11 @@ function ShippingForm({
 function renderForm(
   kind: AdminContentKindType,
   doc: AdminContentDocType,
-  onChange: Props["onChange"]
+  onChange: Props["onChange"],
+  onUpload: UploadImageType
 ) {
   if (kind === "home") {
-    return <HomeForm doc={doc} onChange={onChange} />;
+    return <HomeForm doc={doc} onChange={onChange} onUpload={onUpload} />;
   }
   if (kind === "faq") {
     return <FaqForm doc={doc} onChange={onChange} />;
@@ -359,7 +465,7 @@ function renderForm(
   if (kind === "shipping") {
     return <ShippingForm doc={doc} onChange={onChange} />;
   }
-  return <PageForm doc={doc} onChange={onChange} />;
+  return <PageForm doc={doc} onChange={onChange} onUpload={onUpload} />;
 }
 
 export default function AdminContentEditorInterface({
@@ -369,6 +475,7 @@ export default function AdminContentEditorInterface({
   saving,
   onSelectSection,
   onChange,
+  onUploadImage,
   onSave
 }: Props) {
   const active = sections.find((s) => s.slug === activeSlug) ?? sections[0];
@@ -400,7 +507,7 @@ export default function AdminContentEditorInterface({
         className="flex max-w-2xl flex-col gap-5"
       >
         <h2 className="font-display text-xl text-ink">{active.label}</h2>
-        {renderForm(active.kind, doc, onChange)}
+        {renderForm(active.kind, doc, onChange, onUploadImage)}
         <ButtonInterface type="submit" disabled={saving}>
           {saving ? "Guardando..." : "Guardar cambios"}
         </ButtonInterface>

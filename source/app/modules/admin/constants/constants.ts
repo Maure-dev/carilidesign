@@ -38,6 +38,7 @@ export const INITIAL_STATE = {
     products: [],
     draft: null,
     saving: false,
+    uploadingImage: false,
     orders: [],
     contentSlug: "home",
     contentDoc: {},

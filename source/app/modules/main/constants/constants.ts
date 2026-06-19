@@ -7,6 +7,7 @@ export const INITIAL_STATE = {
   MAIN_PAGE: {
     notification: { open: false, status: true, message: "" },
     session: { status: "loading", user: null },
-    cart: { items: [], hydrated: false }
+    cart: { items: [], hydrated: false },
+    site: { status: "loading", content: {}, products: [] }
   } satisfies MainDataType
 };

@@ -57,6 +57,8 @@ export default function AuthFormInterface({
         <span className="text-sm text-ink">Email</span>
         <input
           type="email"
+          required
+          autoComplete="email"
           value={form.email}
           onChange={(e) => onChange("email", e.target.value)}
           className="rounded-buttons border border-sand bg-canvas px-3 py-2 text-sm outline-none focus:border-clay"
@@ -68,6 +70,9 @@ export default function AuthFormInterface({
           <span className="text-sm text-ink">Contraseña</span>
           <input
             type="password"
+            required
+            minLength={mode === "register" ? 6 : undefined}
+            autoComplete={mode === "register" ? "new-password" : "current-password"}
             value={form.password}
             onChange={(e) => onChange("password", e.target.value)}
             className="rounded-buttons border border-sand bg-canvas px-3 py-2 text-sm outline-none focus:border-clay"

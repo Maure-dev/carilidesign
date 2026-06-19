@@ -12,6 +12,9 @@ export default defineConfig(({ mode }) => {
     // En test la raíz es `source/` para que los paths de include/setup resuelvan bien.
     root: isTest ? __dirname : path.resolve(__dirname, "app"),
     publicDir: path.resolve(__dirname, "public"),
+    // Los .env viven en `source/` (no en `app/`). Sin esto, en dev Vite los buscaría
+    // en `app/` (el root) y nunca leería `source/.env`.
+    envDir: __dirname,
     envPrefix: "ENV_",
     resolve: {
       alias: [{ find: "@app", replacement: path.resolve(__dirname, "app") }]

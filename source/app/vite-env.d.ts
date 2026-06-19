@@ -8,6 +8,8 @@ interface ImportMetaEnv {
   readonly ENV_FIREBASE_MESSAGING_SENDER_ID?: string;
   readonly ENV_FIREBASE_APP_ID?: string;
   readonly ENV_API_BASE_URL?: string;
+  readonly ENV_CLOUDINARY_CLOUD_NAME?: string;
+  readonly ENV_CLOUDINARY_UPLOAD_PRESET?: string;
 }
 
 interface ImportMeta {

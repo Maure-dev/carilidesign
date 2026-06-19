@@ -44,7 +44,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             id: orderId,
             title: "Pedido Carili Design",
             quantity: 1,
-            unit_price: order.total,
+            unit_price: order.total ?? 0,
             currency_id: "ARS"
           }
         ],

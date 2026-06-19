@@ -95,6 +95,7 @@ export type AdminDataType = {
   products: ProductType[];
   draft: ProductDraftType | null;
   saving: boolean;
+  uploadingImage: boolean;
   orders: AdminOrderType[];
   contentSlug: string;
   contentDoc: AdminContentDocType;

@@ -1,20 +1,16 @@
+import type { PageContentType } from "@app/modules/content/entities/entities";
 import { useContentProvider } from "@app/modules/content/states/contentProvider";
-import { useNotification } from "@app/modules/main/hooks/useNotification";
-import { getPageContent } from "@app/modules/content/services/services";
+import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
 
 export const useContentActions = () => {
   const { setContentState } = useContentProvider();
-  const { onNotification } = useNotification();
+  const { getSection } = useSiteContent();
 
-  const handleLoadPage = async (slug: string): Promise<void> => {
-    setContentState((s) => ({ ...s, loading: true }));
-    try {
-      const page = await getPageContent(slug);
-      setContentState((s) => ({ ...s, page: page, loading: false }));
-    } catch {
-      onNotification(false, "No se pudo cargar la página.");
-      setContentState((s) => ({ ...s, loading: false, error: "load_error" }));
-    }
+  // La data ya vino en el bootstrap: leemos la sección del store global.
+  const handleLoadPage = (slug: string): void => {
+    const doc = getSection<Record<string, unknown>>(slug);
+    const page = doc ? ({ ...doc, slug: slug } as unknown as PageContentType) : null;
+    setContentState((s) => ({ ...s, page: page, loading: false }));
   };
 
   return { handleLoadPage };

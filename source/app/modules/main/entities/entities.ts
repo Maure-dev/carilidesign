@@ -140,12 +140,27 @@ export type NotificationType = {
   message: string;
 };
 
+// ── Bootstrap global del sitio (data desde Firestore) ──
+
+// Estado de la carga inicial de datos contra Firestore.
+export type SiteStatusType = "loading" | "ready" | "error";
+
+// Contenido del sitio indexado por slug (siteContent/{slug}).
+export type SiteContentMapType = Record<string, Record<string, unknown>>;
+
+export type SiteDataType = {
+  status: SiteStatusType;
+  content: SiteContentMapType;
+  products: ProductType[];
+};
+
 // ── Estado y contexto del módulo main ──
 
 export type MainDataType = {
   notification: NotificationType;
   session: SessionType;
   cart: CartType;
+  site: SiteDataType;
 };
 
 export type MainContextType = {

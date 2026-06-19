@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { INITIAL_STATE } from "@app/modules/main/constants/constants";
 import { loadCartItems, saveCartItems } from "@app/modules/main/helpers/cartStorage";
 import { auth } from "@app/modules/main/services/firebase";
+import { fetchSiteBootstrap } from "@app/modules/main/services/bootstrap";
 import { MainContext } from "./mainContext";
 
 export default function MainProvider({ children }: ChildrenType) {
@@ -28,6 +29,31 @@ export default function MainProvider({ children }: ChildrenType) {
     }
     saveCartItems(getMainState.cart.items);
   }, [getMainState.cart.items, getMainState.cart.hydrated]);
+
+  // Bootstrap: traer contenido + productos desde Firestore antes de mostrar la app.
+  // Éxito → status "ready"; falla o sin Firebase → "error" (pantalla de mantenimiento).
+  useEffect(() => {
+    let active = true;
+    fetchSiteBootstrap()
+      .then((data) => {
+        if (!active) {
+          return;
+        }
+        setMainState((s) => ({
+          ...s,
+          site: { status: "ready", content: data.content, products: data.products }
+        }));
+      })
+      .catch(() => {
+        if (!active) {
+          return;
+        }
+        setMainState((s) => ({ ...s, site: { ...s.site, status: "error" } }));
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
 
   // Suscribir el estado de sesión de Firebase Auth.
   useEffect(() => {

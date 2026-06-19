@@ -1,21 +1,14 @@
 import type { CatalogSortType } from "@app/modules/catalog/entities/entities";
 import { useCatalogProvider } from "@app/modules/catalog/states/catalogProvider";
-import { useNotification } from "@app/modules/main/hooks/useNotification";
-import { getActiveProducts } from "@app/modules/catalog/services/services";
+import { useCatalog } from "@app/modules/main/hooks/useCatalog";
 
 export const useCatalogActions = () => {
   const { setCatalogState } = useCatalogProvider();
-  const { onNotification } = useNotification();
+  const { products } = useCatalog();
 
-  const handleLoadProducts = async (): Promise<void> => {
-    setCatalogState((s) => ({ ...s, loading: true }));
-    try {
-      const all = await getActiveProducts();
-      setCatalogState((s) => ({ ...s, all: all, loading: false }));
-    } catch {
-      onNotification(false, "No se pudieron cargar los productos.");
-      setCatalogState((s) => ({ ...s, loading: false, error: "load_error" }));
-    }
+  // Los productos ya vinieron en el bootstrap: se leen del store global.
+  const handleLoadProducts = (): void => {
+    setCatalogState((s) => ({ ...s, all: products, loading: false }));
   };
 
   const handleSearch = (search: string): void => {

@@ -7,6 +7,7 @@ import type { OrderStatusType, ProductType } from "@app/modules/main/entities/en
 import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
 import { useNotification } from "@app/modules/main/hooks/useNotification";
 import { auth } from "@app/modules/main/services/firebase";
+import { uploadImage } from "@app/modules/main/services/imageUpload";
 import { EMPTY_DRAFT } from "@app/modules/admin/constants/constants";
 import { validateProduct } from "@app/modules/admin/helpers/validateProduct";
 import {
@@ -103,6 +104,36 @@ export const useAdminActions = () => {
         ? { ...s, draft: { ...s.draft, images: s.draft.images.filter((_, i) => i !== index) } }
         : s
     );
+  };
+
+  const handleUploadImage = async (file: File): Promise<void> => {
+    setAdminState((s) => ({ ...s, uploadingImage: true }));
+    try {
+      const url = await uploadImage(file);
+      setAdminState((s) =>
+        s.draft
+          ? {
+              ...s,
+              uploadingImage: false,
+              draft: { ...s.draft, images: [...s.draft.images, { url: url, alt: s.draft.name }] }
+            }
+          : { ...s, uploadingImage: false }
+      );
+      onNotification(true, "Imagen subida.");
+    } catch {
+      onNotification(false, "No se pudo subir la imagen. Configurá Cloudinary en el .env.");
+      setAdminState((s) => ({ ...s, uploadingImage: false }));
+    }
+  };
+
+  // Sube una imagen a Cloudinary y devuelve su URL (para los campos de imagen del contenido).
+  const handleUploadContentImage = async (file: File): Promise<string> => {
+    try {
+      return await uploadImage(file);
+    } catch (error) {
+      onNotification(false, "No se pudo subir la imagen. Configurá Cloudinary en el .env.");
+      throw error;
+    }
   };
 
   const handleSaveProduct = async (): Promise<void> => {
@@ -235,6 +266,8 @@ export const useAdminActions = () => {
     handleChangeDraft,
     handleAddImage,
     handleRemoveImage,
+    handleUploadImage,
+    handleUploadContentImage,
     handleSaveProduct,
     handleDeleteProduct,
     handleLoadOrders,

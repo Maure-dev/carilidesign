@@ -18,21 +18,29 @@ function requireAuth() {
   return auth;
 }
 
+// Escritura de perfil best-effort: nunca debe tumbar el alta/ingreso. Si falla
+// (reglas de Firestore sin deployar, red, etc.) avisamos por consola y seguimos:
+// la cuenta de Auth ya existe y el perfil puede recrearse luego.
 async function ensureUserDoc(uid: string, email: string, displayName: string): Promise<void> {
   if (!db) {
+    console.warn("Firestore no disponible: no se guardó el perfil del usuario.");
     return;
   }
-  await setDoc(
-    doc(db, "users", uid),
-    {
-      uid: uid,
-      email: email,
-      displayName: displayName || null,
-      role: "user",
-      updatedAt: serverTimestamp()
-    },
-    { merge: true }
-  );
+  try {
+    await setDoc(
+      doc(db, "users", uid),
+      {
+        uid: uid,
+        email: email,
+        displayName: displayName || null,
+        role: "user",
+        updatedAt: serverTimestamp()
+      },
+      { merge: true }
+    );
+  } catch (error) {
+    console.warn("No se pudo guardar el perfil del usuario en Firestore:", error);
+  }
 }
 
 export async function loginEmail(email: string, password: string): Promise<UserCredential> {
@@ -45,8 +53,13 @@ export async function registerEmail(
   displayName: string
 ): Promise<UserCredential> {
   const cred = await createUserWithEmailAndPassword(requireAuth(), email, password);
+  // updateProfile y ensureUserDoc son posteriores al alta y no deben hacerla fallar.
   if (displayName) {
-    await updateProfile(cred.user, { displayName: displayName });
+    try {
+      await updateProfile(cred.user, { displayName: displayName });
+    } catch (error) {
+      console.warn("No se pudo actualizar el nombre del usuario:", error);
+    }
   }
   await ensureUserDoc(cred.user.uid, email, displayName);
   return cred;

@@ -19,7 +19,7 @@ export type HomeContentType = {
 export type HomeDataType = {
   loading: boolean;
   featured: ProductType[];
-  content: HomeContentType;
+  content: HomeContentType | null;
   error: string | null;
 };
 

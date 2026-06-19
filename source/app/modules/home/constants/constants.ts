@@ -1,14 +1,10 @@
-import type { HomeContentType, HomeDataType } from "@app/modules/home/entities/entities";
-import { SITE_DEFAULTS } from "@app/modules/main/helpers/siteContent";
-
-// Fuente única del contenido del sitio: vive en main (código), editable desde Admin.
-export const DEFAULT_HOME_CONTENT = SITE_DEFAULTS.home as unknown as HomeContentType;
+import type { HomeDataType } from "@app/modules/home/entities/entities";
 
 export const INITIAL_STATE = {
   HOME_PAGE: {
     loading: true,
     featured: [],
-    content: DEFAULT_HOME_CONTENT,
+    content: null,
     error: null
   } satisfies HomeDataType
 };

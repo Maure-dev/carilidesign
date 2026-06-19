@@ -14,8 +14,18 @@ import MessagesListInterface from "@app/modules/admin/interfaces/messagesListInt
 export default function AdminModule() {
   const { getAdminState } = useAdminProvider();
   const actions = useAdminActions();
-  const { tab, loading, products, draft, saving, orders, contentSlug, contentDoc, messages } =
-    getAdminState;
+  const {
+    tab,
+    loading,
+    products,
+    draft,
+    saving,
+    uploadingImage,
+    orders,
+    contentSlug,
+    contentDoc,
+    messages
+  } = getAdminState;
 
   useDocumentHead({ title: "Administración" });
 
@@ -45,8 +55,10 @@ export default function AdminModule() {
               <ProductFormInterface
                 draft={draft}
                 saving={saving}
+                uploading={uploadingImage}
                 onChange={actions.handleChangeDraft}
                 onAddImage={actions.handleAddImage}
+                onUploadImage={actions.handleUploadImage}
                 onRemoveImage={actions.handleRemoveImage}
                 onSave={actions.handleSaveProduct}
                 onCancel={actions.handleCancelDraft}
@@ -74,6 +86,7 @@ export default function AdminModule() {
               saving={saving}
               onSelectSection={actions.handleSelectContentSection}
               onChange={actions.handleChangeContentDoc}
+              onUploadImage={actions.handleUploadContentImage}
               onSave={actions.handleSaveContent}
             />
           )}

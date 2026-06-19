@@ -11,6 +11,7 @@ source/coverage/
 .env
 .env.*
 !.env.example
+!source/.env.test
 
 # Tooling local de Claude Code
 .claude

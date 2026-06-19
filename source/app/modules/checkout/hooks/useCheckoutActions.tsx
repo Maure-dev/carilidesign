@@ -1,16 +1,17 @@
-import type { CheckoutStepType, ShippingFormType } from "@app/modules/checkout/entities/entities";
+import type {
+  CheckoutStepType,
+  ShippingFormType,
+  ShippingOptionType
+} from "@app/modules/checkout/entities/entities";
 import type { PaymentMethodType } from "@app/modules/main/entities/entities";
 import { useCheckoutProvider } from "@app/modules/checkout/states/checkoutProvider";
 import { useCart } from "@app/modules/main/hooks/useCart";
 import { useSession } from "@app/modules/main/hooks/useSession";
 import { useNotification } from "@app/modules/main/hooks/useNotification";
 import { useRouter } from "@app/modules/main/hooks/useRouter";
+import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
 import { isFirebaseConfigured } from "@app/modules/main/services/firebase";
-import {
-  createOrder,
-  createPreference,
-  getShippingOptions
-} from "@app/modules/checkout/services/services";
+import { createOrder, createPreference } from "@app/modules/checkout/services/services";
 import { validateCheckout } from "@app/modules/checkout/helpers/validateCheckout";
 
 export const useCheckoutActions = () => {
@@ -18,6 +19,7 @@ export const useCheckoutActions = () => {
   const { items, getTotal, clearCart } = useCart();
   const { user } = useSession();
   const { onNotification } = useNotification();
+  const { getSection } = useSiteContent();
   const router = useRouter();
 
   const handleChangeField = (field: keyof ShippingFormType, value: string): void => {
@@ -40,13 +42,10 @@ export const useCheckoutActions = () => {
     router.navigate("/carrito");
   };
 
-  const handleLoadShipping = async (): Promise<void> => {
-    try {
-      const options = await getShippingOptions();
-      setCheckoutState((s) => ({ ...s, shippingOptions: options }));
-    } catch {
-      /* se mantienen las opciones por defecto */
-    }
+  // Las opciones de envío ya vinieron en el bootstrap: se leen del store global.
+  const handleLoadShipping = (): void => {
+    const shipping = getSection<{ options?: ShippingOptionType[] }>("shipping");
+    setCheckoutState((s) => ({ ...s, shippingOptions: shipping?.options ?? [] }));
   };
 
   const handleSelectShipping = (id: string): void => {

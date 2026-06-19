@@ -45,7 +45,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return;
     }
 
-    const allowed = ALLOWED[order.orderStatus] ?? [];
+    const from = order.orderStatus ?? "";
+    const allowed = ALLOWED[from] ?? [];
     if (!allowed.includes(to)) {
       res.status(409).json({ error: "Transición no permitida" });
       return;
@@ -53,7 +54,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     await updateOrder(orderId, { orderStatus: to });
     await addStatusHistory(orderId, {
-      from: order.orderStatus,
+      from: from,
       to: to,
       changedBy: caller.uid,
       at: new Date().toISOString()

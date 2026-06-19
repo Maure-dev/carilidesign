@@ -10,7 +10,7 @@ export default function ContactModule() {
   const { getContactState } = useContactProvider();
   const { handleLoadInfo, handleChangeField, handleSubmit } = useContactActions();
   const state = getContactState;
-  const mapSrc = getMapSrc(state.info.mapEmbedUrl);
+  const mapSrc = state.info ? getMapSrc(state.info.mapEmbedUrl) : null;
 
   useDocumentHead({
     title: "Contacto",
@@ -36,7 +36,7 @@ export default function ContactModule() {
           />
         </div>
         <aside className="flex flex-col gap-4">
-          <ContactInfoInterface info={state.info} />
+          {state.info && <ContactInfoInterface info={state.info} />}
           {/* Mapa: debajo de la información de contacto */}
           {mapSrc && (
             <iframe

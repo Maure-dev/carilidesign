@@ -1,11 +1,22 @@
-// Contenido y configuración del sitio. Vive EN CÓDIGO (defaults) con un override local
-// opcional (localStorage) editable desde el Admin. NO usa Firebase: sólo productos,
-// pedidos y mensajes usan Firebase.
+// Carga el contenido inicial de las secciones en Firestore (colección `siteContent`),
+// para que la data del sitio venga de Firebase y sea editable desde Admin.
+// NO pisa secciones que ya existan: podés re-correrlo sin perder tus ediciones.
+//
+// Requiere scripts/serviceAccount.json (ver set-admin.mjs).
+// Uso:  node seed-content.mjs
+import { readFileSync } from "node:fs";
+import { cert, initializeApp } from "firebase-admin/app";
+import { getFirestore } from "firebase-admin/firestore";
 
-const STORAGE_KEY = "carili_site_content";
+const serviceAccount = JSON.parse(
+  readFileSync(new URL("./serviceAccount.json", import.meta.url), "utf8")
+);
 
-// Defaults de todas las secciones editables (siteContent por slug).
-export const SITE_DEFAULTS: Record<string, Record<string, unknown>> = {
+initializeApp({ credential: cert(serviceAccount) });
+const db = getFirestore();
+
+// Snapshot del contenido inicial (espejo de SITE_DEFAULTS del front).
+const CONTENT = {
   home: {
     heroTitle: "Bachas de baño hechas a mano",
     heroSubtitle:
@@ -125,37 +136,20 @@ export const SITE_DEFAULTS: Record<string, Record<string, unknown>> = {
   }
 };
 
-function loadOverrides(): Record<string, Record<string, unknown>> {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEY);
-    if (!raw) {
-      return {};
-    }
-    const parsed = JSON.parse(raw);
-    return typeof parsed === "object" && parsed !== null ? parsed : {};
-  } catch {
-    return {};
+let created = 0;
+let skipped = 0;
+for (const [slug, data] of Object.entries(CONTENT)) {
+  const ref = db.collection("siteContent").doc(slug);
+  const snap = await ref.get();
+  if (snap.exists) {
+    console.log("skip (ya existe):", slug);
+    skipped += 1;
+    continue;
   }
+  await ref.set(data);
+  console.log("OK:", slug);
+  created += 1;
 }
 
-export function hasSiteContent(slug: string): boolean {
-  return slug in SITE_DEFAULTS || slug in loadOverrides();
-}
-
-// Devuelve el contenido vigente de una sección: default de código + override local.
-export function getSiteContent<T>(slug: string): T {
-  const overrides = loadOverrides();
-  const merged = { ...(SITE_DEFAULTS[slug] ?? {}), ...(overrides[slug] ?? {}) };
-  return merged as unknown as T;
-}
-
-// Guarda el override local (no toca Firebase).
-export function saveSiteContent(slug: string, doc: Record<string, unknown>): void {
-  try {
-    const all = loadOverrides();
-    all[slug] = doc;
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(all));
-  } catch {
-    /* noop: localStorage no disponible */
-  }
-}
+console.log(`Listo: ${created} secciones creadas, ${skipped} ya existían.`);
+process.exit(0);

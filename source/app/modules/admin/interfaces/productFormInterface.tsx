@@ -5,8 +5,10 @@ import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 type Props = {
   draft: ProductDraftType;
   saving: boolean;
+  uploading: boolean;
   onChange: (patch: Partial<ProductDraftType>) => void;
   onAddImage: (url: string) => void;
+  onUploadImage: (file: File) => void;
   onRemoveImage: (index: number) => void;
   onSave: () => void;
   onCancel: () => void;
@@ -18,8 +20,10 @@ const inputClass =
 export default function ProductFormInterface({
   draft,
   saving,
+  uploading,
   onChange,
   onAddImage,
+  onUploadImage,
   onRemoveImage,
   onSave,
   onCancel
@@ -59,6 +63,8 @@ export default function ProductFormInterface({
           <span className="text-sm text-ink">Precio (ARS)</span>
           <input
             type="number"
+            min="0"
+            step="0.01"
             className={inputClass}
             value={draft.priceArs}
             onChange={(e) => onChange({ priceArs: Number(e.target.value) })}
@@ -121,7 +127,7 @@ export default function ProductFormInterface({
       </div>
 
       <div className="flex flex-col gap-2">
-        <span className="text-sm text-ink">Imágenes (URL)</span>
+        <span className="text-sm text-ink">Imágenes</span>
         <div className="flex flex-wrap gap-2">
           {draft.images.map((image, index) => (
             <span
@@ -140,10 +146,47 @@ export default function ProductFormInterface({
             </span>
           ))}
         </div>
+
+        <label
+          className={`inline-flex w-fit cursor-pointer items-center gap-2 rounded-buttons bg-clay px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-clay-deep ${
+            uploading ? "pointer-events-none opacity-70" : ""
+          }`}
+        >
+          <svg
+            viewBox="0 0 24 24"
+            width="1.1rem"
+            height="1.1rem"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M12 16 V4" />
+            <path d="M7 9 L12 4 L17 9" />
+            <path d="M5 20 H19" />
+          </svg>
+          {uploading ? "Subiendo imagen…" : "Subir imagen"}
+          <input
+            type="file"
+            accept="image/*"
+            disabled={uploading}
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                onUploadImage(file);
+              }
+              e.target.value = "";
+            }}
+            className="hidden"
+          />
+        </label>
+
         <div className="flex gap-2">
           <input
             className={`flex-1 ${inputClass}`}
-            placeholder="https://..."
+            placeholder="…o pegá una URL de imagen"
             value={imageUrl}
             onChange={(e) => setImageUrl(e.target.value)}
           />

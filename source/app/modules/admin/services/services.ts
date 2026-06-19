@@ -19,62 +19,23 @@ import {
   updateDoc
 } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
-import { SEED_PRODUCTS } from "@app/modules/main/helpers/seedData";
-import { getSiteContent, saveSiteContent } from "@app/modules/main/helpers/siteContent";
+import { fetchSiteContent, saveSiteContent } from "@app/modules/main/services/siteContent";
 
-// ── Datos de ejemplo para previsualizar el panel en modo demo (sin Firebase) ──
-const DEMO_ORDERS: AdminOrderType[] = [
-  {
-    id: "demo-1",
-    orderNumber: "0001",
-    userId: "demo",
-    total: 60000,
-    paymentMethod: "bank_transfer",
-    paymentStatus: "in_review",
-    orderStatus: "pending_payment"
-  },
-  {
-    id: "demo-2",
-    orderNumber: "0002",
-    userId: "demo",
-    total: 52000,
-    paymentMethod: "mercadopago",
-    paymentStatus: "paid",
-    orderStatus: "paid"
-  },
-  {
-    id: "demo-3",
-    orderNumber: "0003",
-    userId: "demo",
-    total: 72000,
-    paymentMethod: "cash",
-    paymentStatus: "pending",
-    orderStatus: "pending_payment"
+function requireDb() {
+  if (!isFirebaseConfigured || !db) {
+    throw new Error("firestore-unavailable");
   }
-];
-
-const DEMO_MESSAGES: AdminMessageType[] = [
-  {
-    id: "m1",
-    name: "Cliente Demo",
-    email: "demo@correo.com",
-    message: "Hola, ¿hacen envíos a Córdoba? Me interesa la Bacha Luna.",
-    read: false
-  }
-];
+  return db;
+}
 
 export async function listAllProducts(): Promise<ProductType[]> {
-  if (!isFirebaseConfigured || !db) {
-    return SEED_PRODUCTS;
-  }
-  const snap = await getDocs(collection(db, "products"));
+  const database = requireDb();
+  const snap = await getDocs(collection(database, "products"));
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as ProductType);
 }
 
 export async function saveProduct(draft: ProductDraftType): Promise<void> {
-  if (!isFirebaseConfigured || !db) {
-    return;
-  }
+  const database = requireDb();
   const data = {
     name: draft.name,
     slug: draft.slug,
@@ -90,31 +51,24 @@ export async function saveProduct(draft: ProductDraftType): Promise<void> {
     updatedAt: serverTimestamp()
   };
   if (draft.id) {
-    await setDoc(doc(db, "products", draft.id), data, { merge: true });
+    await setDoc(doc(database, "products", draft.id), data, { merge: true });
   } else {
-    await addDoc(collection(db, "products"), { ...data, createdAt: serverTimestamp() });
+    await addDoc(collection(database, "products"), { ...data, createdAt: serverTimestamp() });
   }
 }
 
 export async function deleteProductById(id: string): Promise<void> {
-  if (!isFirebaseConfigured || !db) {
-    return;
-  }
-  await deleteDoc(doc(db, "products", id));
+  const database = requireDb();
+  await deleteDoc(doc(database, "products", id));
 }
 
 export async function listAllOrders(): Promise<AdminOrderType[]> {
-  if (!isFirebaseConfigured || !db) {
-    return DEMO_ORDERS;
-  }
-  const snap = await getDocs(query(collection(db, "orders"), orderBy("createdAt", "desc")));
+  const database = requireDb();
+  const snap = await getDocs(query(collection(database, "orders"), orderBy("createdAt", "desc")));
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as AdminOrderType);
 }
 
 export async function transitionOrder(orderId: string, to: string, idToken: string): Promise<void> {
-  if (!isFirebaseConfigured) {
-    return;
-  }
   await axios.post(
     "/api/admin/orders-status",
     { orderId: orderId, to: to },
@@ -127,9 +81,6 @@ export async function confirmPayment(
   approved: boolean,
   idToken: string
 ): Promise<void> {
-  if (!isFirebaseConfigured) {
-    return;
-  }
   await axios.post(
     "/api/admin/confirm-payment",
     { orderId: orderId, approved: approved },
@@ -137,28 +88,24 @@ export async function confirmPayment(
   );
 }
 
-// Contenido del sitio: vive en código + override local (no Firebase). Muestra el contenido vigente.
+// Contenido del sitio: lee/escribe el documento real en Firestore (siteContent/{slug}).
 export async function getContentDoc(slug: string): Promise<AdminContentDocType> {
-  return getSiteContent<AdminContentDocType>(slug);
+  return fetchSiteContent<AdminContentDocType>(slug);
 }
 
 export async function saveContentDoc(slug: string, content: AdminContentDocType): Promise<void> {
-  saveSiteContent(slug, content);
+  await saveSiteContent(slug, content);
 }
 
 export async function listMessages(): Promise<AdminMessageType[]> {
-  if (!isFirebaseConfigured || !db) {
-    return DEMO_MESSAGES;
-  }
+  const database = requireDb();
   const snap = await getDocs(
-    query(collection(db, "contactMessages"), orderBy("createdAt", "desc"))
+    query(collection(database, "contactMessages"), orderBy("createdAt", "desc"))
   );
   return snap.docs.map((d) => ({ id: d.id, ...d.data() }) as AdminMessageType);
 }
 
 export async function markMessageRead(id: string): Promise<void> {
-  if (!isFirebaseConfigured || !db) {
-    return;
-  }
-  await updateDoc(doc(db, "contactMessages", id), { read: true });
+  const database = requireDb();
+  await updateDoc(doc(database, "contactMessages", id), { read: true });
 }
