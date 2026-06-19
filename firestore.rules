@@ -1,0 +1,72 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    // Catálogo: lectura pública, escritura sólo admin.
+    match /products/{productId} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Contenido del sitio (hero, about, datos de contacto, info de pago): lectura pública.
+    match /siteContent/{slug} {
+      allow read: if true;
+      allow write: if isAdmin();
+    }
+
+    // Perfil de usuario: dueño o admin. El campo role es inmutable para el cliente.
+    match /users/{uid} {
+      allow read: if isOwner(uid) || isAdmin();
+      allow create: if isOwner(uid) && request.resource.data.role == 'user';
+      allow update: if (isOwner(uid) && request.resource.data.role == resource.data.role) || isAdmin();
+      allow delete: if isAdmin();
+    }
+
+    // Pedidos: el dueño lee los suyos; el cliente sólo crea en pending_payment.
+    // El estado de pago/fulfillment y los montos los escribe el server (Admin SDK).
+    match /orders/{orderId} {
+      allow read: if isSignedIn() && (resource.data.userId == request.auth.uid || isAdmin());
+      allow create: if isSignedIn()
+        && request.resource.data.userId == request.auth.uid
+        && request.resource.data.orderStatus == 'pending_payment'
+        && request.resource.data.paymentStatus == 'pending';
+      allow update, delete: if false;
+
+      match /statusHistory/{entryId} {
+        allow read: if isSignedIn()
+          && (get(/databases/$(database)/documents/orders/$(orderId)).data.userId == request.auth.uid || isAdmin());
+        allow write: if false;
+      }
+    }
+
+    // Mensajes de contacto: create público validado; lectura/gestión sólo admin.
+    match /contactMessages/{messageId} {
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'message'])
+        && request.resource.data.name is string && request.resource.data.name.size() > 1
+        && request.resource.data.email is string && request.resource.data.email.size() < 200
+        && request.resource.data.message is string && request.resource.data.message.size() >= 10
+        && request.resource.data.message.size() <= 2000
+        && request.resource.data.read == false;
+      allow read, update, delete: if isAdmin();
+    }
+
+    // Sólo server (Admin SDK): contador de pedidos e idempotencia de webhook.
+    match /counters/{doc} {
+      allow read, write: if false;
+    }
+    match /webhookLog/{doc} {
+      allow read, write: if false;
+    }
+  }
+}

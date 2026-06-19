@@ -21,8 +21,9 @@ export default defineConfig(({ mode }) => {
       port: 5173,
       strictPort: true,
       proxy: {
-        // Configurá los proxies del backend por proyecto, por ejemplo:
-        // "/api": { target: "http://localhost:8080", changeOrigin: true }
+        // En dev las Vercel Functions corren con `vercel dev` (puerto 3000).
+        // Si usás `vercel dev` directamente (sirve front + /api juntos), este proxy no se usa.
+        "/api": { target: "http://localhost:3000", changeOrigin: true }
       }
     },
     build: {

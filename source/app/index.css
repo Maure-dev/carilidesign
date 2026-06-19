@@ -1,17 +1,37 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #1c1e28;
-  --color-accent: #6aba6e;
-  --color-error: #e1251b;
-  --color-success: #2e7d33;
-  --color-warning: #fe8800;
-  --color-light-gray: #cccccc;
-  --color-dark-gray: #898a8d;
+  /* ── Paleta earthy-craft (sistema de diseño Carili) ── */
+  --color-canvas: #f6f1e9; /* fondo base (crema/lino) */
+  --color-surface: #fbf8f2; /* superficie de cards (off-white cálido) */
+  --color-ink: #2a2521; /* texto principal (espresso) → AA sobre canvas */
+  --color-ink-soft: #6e655c; /* texto secundario / captions */
+  --color-clay: #c06b4e; /* acento de marca / CTA */
+  --color-clay-deep: #a1543b; /* hover del acento / texto blanco encima → AA */
+  --color-sage: #9caf88; /* acento secundario / categorías */
+  --color-sand: #e7dbc8; /* bordes, divisores, chips */
+  --color-stone: #8a8178; /* gris cálido neutro */
+  --color-success: #5c7a4e;
+  --color-error: #b0432f;
+  --color-warning: #c98a3c;
+
+  /* ── Alias de compatibilidad (componentes previos) ── */
+  --color-primary: #2a2521;
+  --color-accent: #c06b4e;
+  --color-light-gray: #e7dbc8;
+  --color-dark-gray: #8a8178;
   --color-white: #ffffff;
   --color-black: #000000;
-  --font-sans: "Work Sans", system-ui, sans-serif;
+
+  /* ── Tipografía ── */
+  --font-display: "Fraunces Variable", "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Inter Variable", "Work Sans", system-ui, sans-serif;
+
+  /* ── Radios y sombras suaves ── */
   --radius-buttons: 0.5rem;
+  --radius-card: 0.9rem;
+  --shadow-soft: 0 0.0625rem 0.125rem rgba(42, 37, 33, 0.04),
+    0 0.5rem 1.875rem rgba(42, 37, 33, 0.06);
 }
 
 @layer base {
@@ -24,7 +44,34 @@
   body {
     margin: 0;
     font-family: var(--font-sans);
-    color: var(--color-primary);
-    background-color: var(--color-white);
+    color: var(--color-ink);
+    background-color: var(--color-canvas);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.1;
+  }
+
+  /* Foco visible para accesibilidad (teclado) */
+  :focus-visible {
+    outline: 0.125rem solid var(--color-clay-deep);
+    outline-offset: 0.125rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.001ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.001ms !important;
+    }
   }
 }

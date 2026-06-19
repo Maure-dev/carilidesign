@@ -50,12 +50,11 @@ describe("useHomeActions", () => {
   it("should keep data as an array when the response is malformed", async () => {
     vi.mocked(getTasks).mockResolvedValueOnce({
       data: "<!doctype html>"
-    } as Awaited<ReturnType<typeof getTasks>>);
+    } as unknown as Awaited<ReturnType<typeof getTasks>>);
 
-    const { result } = renderHook(
-      () => ({ actions: useHomeActions(), state: useHomeProvider() }),
-      { wrapper }
-    );
+    const { result } = renderHook(() => ({ actions: useHomeActions(), state: useHomeProvider() }), {
+      wrapper
+    });
 
     await act(async () => {
       await result.current.actions.handleLoadTasks();

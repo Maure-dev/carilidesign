@@ -60,7 +60,7 @@
         "useImportType": "error",
         "noInferrableTypes": "error",
         "noNamespace": "error",
-        "noNonNullAssertion": "off",
+        "noNonNullAssertion": "error",
         "useConsistentArrayType": "error"
       },
       "suspicious": {
@@ -75,8 +75,8 @@
         "noDuplicateCase": "error",
         "noDuplicateParameters": "error",
         "noEmptyBlockStatements": "error",
-        "noExplicitAny": "off",
-        "noExtraNonNullAssertion": "warn",
+        "noExplicitAny": "error",
+        "noExtraNonNullAssertion": "error",
         "noFallthroughSwitchClause": "error",
         "noImportAssign": "error",
         "noMisleadingInstantiator": "error",
