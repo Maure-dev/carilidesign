@@ -2,18 +2,20 @@ import { useEffect } from "react";
 import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
 import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
 import { useAdminActions } from "@app/modules/admin/hooks/useAdminActions";
+import { CONTENT_SECTIONS } from "@app/modules/admin/constants/constants";
 import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
 import AdminTabsInterface from "@app/modules/admin/interfaces/adminTabsInterface";
 import ProductListInterface from "@app/modules/admin/interfaces/productListInterface";
 import ProductFormInterface from "@app/modules/admin/interfaces/productFormInterface";
 import OrderListInterface from "@app/modules/admin/interfaces/orderListInterface";
-import ContentFormInterface from "@app/modules/admin/interfaces/contentFormInterface";
+import AdminContentEditorInterface from "@app/modules/admin/interfaces/adminContentEditorInterface";
 import MessagesListInterface from "@app/modules/admin/interfaces/messagesListInterface";
 
 export default function AdminModule() {
   const { getAdminState } = useAdminProvider();
   const actions = useAdminActions();
-  const { tab, loading, products, draft, saving, orders, content, messages } = getAdminState;
+  const { tab, loading, products, draft, saving, orders, contentSlug, contentDoc, messages } =
+    getAdminState;
 
   useDocumentHead({ title: "Administración" });
 
@@ -65,10 +67,13 @@ export default function AdminModule() {
             />
           )}
           {tab === "content" && (
-            <ContentFormInterface
-              content={content}
+            <AdminContentEditorInterface
+              sections={CONTENT_SECTIONS}
+              activeSlug={contentSlug}
+              doc={contentDoc}
               saving={saving}
-              onChange={actions.handleChangeContent}
+              onSelectSection={actions.handleSelectContentSection}
+              onChange={actions.handleChangeContentDoc}
               onSave={actions.handleSaveContent}
             />
           )}

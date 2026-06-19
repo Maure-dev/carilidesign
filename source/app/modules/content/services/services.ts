@@ -1,20 +1,10 @@
 import type { PageContentType } from "@app/modules/content/entities/entities";
-import { doc, getDoc } from "firebase/firestore";
-import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
-import { DEFAULT_PAGES } from "@app/modules/content/constants/constants";
+import { getSiteContent, hasSiteContent } from "@app/modules/main/helpers/siteContent";
 
+// Contenido de páginas informativas: vive en código (editable desde Admin), NO en Firebase.
 export async function getPageContent(slug: string): Promise<PageContentType | null> {
-  const fallback = DEFAULT_PAGES[slug] ?? null;
-
-  if (!isFirebaseConfigured || !db) {
-    return fallback;
+  if (!hasSiteContent(slug)) {
+    return null;
   }
-  const snap = await getDoc(doc(db, "siteContent", slug));
-  if (!snap.exists()) {
-    return fallback;
-  }
-  return {
-    ...(fallback ?? { slug: slug, title: slug, body: [] }),
-    ...(snap.data() as Partial<PageContentType>)
-  };
+  return getSiteContent<PageContentType>(slug);
 }

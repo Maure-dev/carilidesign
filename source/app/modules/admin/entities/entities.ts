@@ -33,10 +33,52 @@ export type AdminOrderType = {
   orderStatus: OrderStatusType;
 };
 
-export type AdminContentType = {
-  heroTitle: string;
-  heroSubtitle: string;
-  aboutText: string;
+// Tipo de editor según la sección de contenido.
+export type AdminContentKindType = "home" | "page" | "faq" | "contact" | "payment" | "shipping";
+
+export type AdminContentSectionType = {
+  slug: string;
+  label: string;
+  kind: AdminContentKindType;
+};
+
+export type AdminValuePropType = { title: string; text: string };
+export type AdminFaqItemType = { question: string; answer: string };
+export type AdminShippingOptionType = { id: string; name: string; priceArs: number };
+
+// Documento de contenido editable (superset de todas las secciones de siteContent/{slug}).
+// Cada formulario edita el subconjunto de campos que le corresponde.
+export type AdminContentDocType = {
+  // home
+  heroTitle?: string;
+  heroSubtitle?: string;
+  heroImageUrl?: string;
+  processTitle?: string;
+  processText?: string;
+  processImageUrl?: string;
+  valueProps?: AdminValuePropType[];
+  // páginas (about / materials / install / care)
+  title?: string;
+  intro?: string;
+  body?: string[];
+  imageUrl?: string;
+  // faq
+  faq?: AdminFaqItemType[];
+  // contacto
+  email?: string;
+  phone?: string;
+  whatsapp?: string;
+  instagram?: string;
+  address?: string;
+  mapEmbedUrl?: string;
+  // pago (transferencia / efectivo)
+  bankName?: string;
+  accountName?: string;
+  cbu?: string;
+  alias?: string;
+  cashNote?: string;
+  // envío (correos con sus precios)
+  options?: AdminShippingOptionType[];
 };
 
 export type AdminMessageType = {
@@ -54,7 +96,8 @@ export type AdminDataType = {
   draft: ProductDraftType | null;
   saving: boolean;
   orders: AdminOrderType[];
-  content: AdminContentType;
+  contentSlug: string;
+  contentDoc: AdminContentDocType;
   messages: AdminMessageType[];
 };
 

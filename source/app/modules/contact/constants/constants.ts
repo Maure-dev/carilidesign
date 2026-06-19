@@ -1,13 +1,8 @@
 import type { ContactDataType, ContactInfoType } from "@app/modules/contact/entities/entities";
+import { SITE_DEFAULTS } from "@app/modules/main/helpers/siteContent";
 
-export const DEFAULT_CONTACT_INFO: ContactInfoType = {
-  email: "hola@carilidesign.com",
-  phone: "+54 9 11 0000-0000",
-  whatsapp: "5491100000000",
-  instagram: "carilidesign",
-  address: "Buenos Aires, Argentina",
-  mapEmbedUrl: ""
-};
+// Fuente única del contenido del sitio: vive en main (código), editable desde Admin.
+export const DEFAULT_CONTACT_INFO = SITE_DEFAULTS.contact as unknown as ContactInfoType;
 
 export const INITIAL_STATE = {
   CONTACT_PAGE: {

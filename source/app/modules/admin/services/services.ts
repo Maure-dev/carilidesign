@@ -1,6 +1,6 @@
 import type { ProductType } from "@app/modules/main/entities/entities";
 import type {
-  AdminContentType,
+  AdminContentDocType,
   AdminMessageType,
   AdminOrderType,
   ProductDraftType
@@ -11,7 +11,6 @@ import {
   collection,
   deleteDoc,
   doc,
-  getDoc,
   getDocs,
   orderBy,
   query,
@@ -21,14 +20,9 @@ import {
 } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
 import { SEED_PRODUCTS } from "@app/modules/main/helpers/seedData";
+import { getSiteContent, saveSiteContent } from "@app/modules/main/helpers/siteContent";
 
 // ── Datos de ejemplo para previsualizar el panel en modo demo (sin Firebase) ──
-const DEMO_CONTENT: AdminContentType = {
-  heroTitle: "Bachas de baño hechas a mano",
-  heroSubtitle: "Cerámica de autor, modelada y esmaltada a mano en Argentina.",
-  aboutText: "Carili Design nace del oficio de la cerámica. Cada pieza es única."
-};
-
 const DEMO_ORDERS: AdminOrderType[] = [
   {
     id: "demo-1",
@@ -143,22 +137,13 @@ export async function confirmPayment(
   );
 }
 
-export async function getAdminContent(): Promise<AdminContentType> {
-  if (!isFirebaseConfigured || !db) {
-    return DEMO_CONTENT;
-  }
-  const snap = await getDoc(doc(db, "siteContent", "home"));
-  if (!snap.exists()) {
-    return DEMO_CONTENT;
-  }
-  return { ...DEMO_CONTENT, ...(snap.data() as Partial<AdminContentType>) };
+// Contenido del sitio: vive en código + override local (no Firebase). Muestra el contenido vigente.
+export async function getContentDoc(slug: string): Promise<AdminContentDocType> {
+  return getSiteContent<AdminContentDocType>(slug);
 }
 
-export async function saveAdminContent(content: AdminContentType): Promise<void> {
-  if (!isFirebaseConfigured || !db) {
-    return;
-  }
-  await setDoc(doc(db, "siteContent", "home"), content, { merge: true });
+export async function saveContentDoc(slug: string, content: AdminContentDocType): Promise<void> {
+  saveSiteContent(slug, content);
 }
 
 export async function listMessages(): Promise<AdminMessageType[]> {

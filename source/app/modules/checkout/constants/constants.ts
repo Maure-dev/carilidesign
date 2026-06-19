@@ -1,16 +1,16 @@
-import type { CheckoutDataType } from "@app/modules/checkout/entities/entities";
+import type { CheckoutDataType, ShippingOptionType } from "@app/modules/checkout/entities/entities";
+import { SITE_DEFAULTS } from "@app/modules/main/helpers/siteContent";
 
-// Datos de pago por defecto (los edita el admin en siteContent/payment).
-export const DEFAULT_PAYMENT_INFO = {
-  bankName: "Banco (a configurar)",
-  accountName: "Carili Design",
-  cbu: "0000000000000000000000",
-  alias: "carili.design",
-  cashNote: "Coordinamos la entrega y el pago en efectivo por WhatsApp tras tu pedido."
-};
+// Clave para persistir el progreso del checkout (datos de envío + método) entre navegaciones.
+export const CHECKOUT_STORAGE_KEY = "carili_checkout_v1";
+
+// Opciones de envío por defecto (viven en código, editables desde Admin → main/siteContent).
+export const DEFAULT_SHIPPING_OPTIONS = (SITE_DEFAULTS.shipping.options ??
+  []) as ShippingOptionType[];
 
 export const INITIAL_STATE = {
   CHECKOUT_PAGE: {
+    step: "shipping",
     form: {
       fullName: "",
       email: "",
@@ -22,6 +22,8 @@ export const INITIAL_STATE = {
       notes: ""
     },
     method: "mercadopago",
+    shippingOptions: DEFAULT_SHIPPING_OPTIONS,
+    shippingMethodId: null,
     submitting: false,
     errors: {}
   } satisfies CheckoutDataType

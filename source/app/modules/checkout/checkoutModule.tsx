@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Link } from "react-router";
 import { useCheckoutProvider } from "@app/modules/checkout/states/checkoutProvider";
 import { useCheckoutActions } from "@app/modules/checkout/hooks/useCheckoutActions";
@@ -5,17 +6,38 @@ import { useCart } from "@app/modules/main/hooks/useCart";
 import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
 import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
+import CheckoutStepperInterface from "@app/modules/main/interfaces/checkoutStepperInterface";
 import CheckoutFormInterface from "@app/modules/checkout/interfaces/checkoutFormInterface";
+import ShippingOptionsInterface from "@app/modules/checkout/interfaces/shippingOptionsInterface";
 import PaymentMethodInterface from "@app/modules/checkout/interfaces/paymentMethodInterface";
 import CheckoutSummaryInterface from "@app/modules/checkout/interfaces/checkoutSummaryInterface";
 
 export default function CheckoutModule() {
   const { getCheckoutState } = useCheckoutProvider();
-  const { handleChangeField, handleSetMethod, handleSubmit } = useCheckoutActions();
+  const {
+    handleChangeField,
+    handleSetMethod,
+    handleSetStep,
+    handleBackToCart,
+    handleLoadShipping,
+    handleSelectShipping,
+    handleContinueToPayment,
+    handleSubmit
+  } = useCheckoutActions();
   const { items, getTotal } = useCart();
-  const { form, method, errors, submitting } = getCheckoutState;
+  const { step, form, method, shippingOptions, shippingMethodId, errors, submitting } =
+    getCheckoutState;
 
   useDocumentHead({ title: "Checkout" });
+
+  useEffect(() => {
+    handleLoadShipping();
+  }, []);
+
+  const selectedShipping = shippingOptions.find((o) => o.id === shippingMethodId) ?? null;
+  const shippingCost = selectedShipping ? selectedShipping.priceArs : null;
+  const subtotal = getTotal();
+  const total = subtotal + (shippingCost ?? 0);
 
   if (items.length === 0) {
     return (
@@ -31,21 +53,62 @@ export default function CheckoutModule() {
     );
   }
 
+  const onStepNavigate = (index: number) => {
+    if (index === 0) {
+      handleBackToCart();
+    } else if (index === 1) {
+      handleSetStep("shipping");
+    }
+  };
+
   return (
-    <section className="mx-auto grid max-w-5xl gap-10 px-4 py-10 md:grid-cols-[1fr_20rem]">
-      <div className="flex flex-col gap-8">
-        <div className="flex flex-col gap-4">
-          <h1 className="font-display text-3xl text-ink">Finalizar compra</h1>
-          <CheckoutFormInterface form={form} errors={errors} onChange={handleChangeField} />
+    <section className="mx-auto max-w-5xl px-4 py-10">
+      <CheckoutStepperInterface current={step === "shipping" ? 1 : 2} onNavigate={onStepNavigate} />
+
+      <div className="grid gap-10 md:grid-cols-[1fr_20rem]">
+        <div className="flex flex-col gap-6">
+          {step === "shipping" ? (
+            <>
+              <h1 className="font-display text-3xl text-ink">Datos de envío</h1>
+              <CheckoutFormInterface form={form} errors={errors} onChange={handleChangeField} />
+              <ShippingOptionsInterface
+                options={shippingOptions}
+                selectedId={shippingMethodId}
+                onSelect={handleSelectShipping}
+              />
+              <ButtonInterface variant="secondary" onClick={handleBackToCart} className="w-fit">
+                ← Volver al carrito
+              </ButtonInterface>
+            </>
+          ) : (
+            <>
+              <h1 className="font-display text-3xl text-ink">Método de pago</h1>
+              <PaymentMethodInterface method={method} onSelect={handleSetMethod} />
+              <ButtonInterface
+                variant="secondary"
+                onClick={() => handleSetStep("shipping")}
+                className="w-fit"
+              >
+                ← Volver a datos de envío
+              </ButtonInterface>
+            </>
+          )}
         </div>
-        <PaymentMethodInterface method={method} onSelect={handleSetMethod} />
+
+        {/* Resumen del pedido: visible en todos los pasos del stepper */}
+        <aside className="flex flex-col gap-4 self-start md:sticky md:top-24">
+          <CheckoutSummaryInterface items={items} shippingCost={shippingCost} total={total} />
+          {step === "shipping" ? (
+            <ButtonInterface onClick={handleContinueToPayment} block>
+              Continuar al pago →
+            </ButtonInterface>
+          ) : (
+            <ButtonInterface onClick={handleSubmit} disabled={submitting} block>
+              {submitting ? "Procesando..." : "Confirmar pedido"}
+            </ButtonInterface>
+          )}
+        </aside>
       </div>
-      <aside className="flex flex-col gap-4">
-        <CheckoutSummaryInterface items={items} total={getTotal()} />
-        <ButtonInterface onClick={handleSubmit} disabled={submitting} block>
-          {submitting ? "Procesando..." : "Confirmar pedido"}
-        </ButtonInterface>
-      </aside>
     </section>
   );
 }

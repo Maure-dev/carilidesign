@@ -1,5 +1,5 @@
 import type {
-  AdminContentType,
+  AdminContentDocType,
   AdminTabType,
   ProductDraftType
 } from "@app/modules/admin/entities/entities";
@@ -12,12 +12,12 @@ import { validateProduct } from "@app/modules/admin/helpers/validateProduct";
 import {
   confirmPayment,
   deleteProductById,
-  getAdminContent,
+  getContentDoc,
   listAllOrders,
   listAllProducts,
   listMessages,
   markMessageRead,
-  saveAdminContent,
+  saveContentDoc,
   saveProduct,
   transitionOrder
 } from "@app/modules/admin/services/services";
@@ -169,22 +169,35 @@ export const useAdminActions = () => {
   };
 
   const handleLoadContent = async (): Promise<void> => {
+    setAdminState((s) => ({ ...s, loading: true }));
     try {
-      const content = await getAdminContent();
-      setAdminState((s) => ({ ...s, content: content }));
+      const doc = await getContentDoc(getAdminState.contentSlug);
+      setAdminState((s) => ({ ...s, contentDoc: doc, loading: false }));
+    } catch {
+      onNotification(false, "No se pudo cargar el contenido.");
+      setAdminState((s) => ({ ...s, loading: false }));
+    }
+  };
+
+  const handleSelectContentSection = async (slug: string): Promise<void> => {
+    // Cambia de sección al instante (sin spinner que oculte el selector) y carga el doc.
+    setAdminState((s) => ({ ...s, contentSlug: slug, contentDoc: {} }));
+    try {
+      const doc = await getContentDoc(slug);
+      setAdminState((s) => ({ ...s, contentDoc: doc }));
     } catch {
       onNotification(false, "No se pudo cargar el contenido.");
     }
   };
 
-  const handleChangeContent = (patch: Partial<AdminContentType>): void => {
-    setAdminState((s) => ({ ...s, content: { ...s.content, ...patch } }));
+  const handleChangeContentDoc = (patch: Partial<AdminContentDocType>): void => {
+    setAdminState((s) => ({ ...s, contentDoc: { ...s.contentDoc, ...patch } }));
   };
 
   const handleSaveContent = async (): Promise<void> => {
     setAdminState((s) => ({ ...s, saving: true }));
     try {
-      await saveAdminContent(getAdminState.content);
+      await saveContentDoc(getAdminState.contentSlug, getAdminState.contentDoc);
       onNotification(true, "Contenido guardado.");
       setAdminState((s) => ({ ...s, saving: false }));
     } catch {
@@ -228,7 +241,8 @@ export const useAdminActions = () => {
     handleTransition,
     handleConfirmPayment,
     handleLoadContent,
-    handleChangeContent,
+    handleSelectContentSection,
+    handleChangeContentDoc,
     handleSaveContent,
     handleLoadMessages,
     handleMarkRead

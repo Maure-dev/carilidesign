@@ -1,10 +1,10 @@
 import type { ContactFormType, ContactInfoType } from "@app/modules/contact/entities/entities";
 import axios from "axios";
-import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
-import { DEFAULT_CONTACT_INFO } from "@app/modules/contact/constants/constants";
+import { getSiteContent } from "@app/modules/main/helpers/siteContent";
 
-// Guarda el mensaje en Firestore (si está configurado).
+// Guarda el mensaje en Firestore (los mensajes SÍ usan Firebase).
 export async function saveContactMessage(form: ContactFormType): Promise<void> {
   if (!isFirebaseConfigured || !db) {
     return;
@@ -23,13 +23,7 @@ export async function sendContactEmail(form: ContactFormType): Promise<void> {
   await axios.post("/api/contact/send", form);
 }
 
+// Datos de contacto: viven en código (editables desde Admin), NO en Firebase.
 export async function getContactInfo(): Promise<ContactInfoType> {
-  if (!isFirebaseConfigured || !db) {
-    return DEFAULT_CONTACT_INFO;
-  }
-  const snap = await getDoc(doc(db, "siteContent", "contact"));
-  if (!snap.exists()) {
-    return DEFAULT_CONTACT_INFO;
-  }
-  return { ...DEFAULT_CONTACT_INFO, ...(snap.data() as Partial<ContactInfoType>) };
+  return getSiteContent<ContactInfoType>("contact");
 }

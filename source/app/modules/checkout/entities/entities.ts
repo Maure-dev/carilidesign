@@ -12,9 +12,20 @@ export type ShippingFormType = {
   notes: string;
 };
 
+export type CheckoutStepType = "shipping" | "payment";
+
+export type ShippingOptionType = {
+  id: string;
+  name: string;
+  priceArs: number;
+};
+
 export type CheckoutDataType = {
+  step: CheckoutStepType;
   form: ShippingFormType;
   method: PaymentMethodType;
+  shippingOptions: ShippingOptionType[];
+  shippingMethodId: string | null;
   submitting: boolean;
   errors: Partial<Record<keyof ShippingFormType, string>>;
 };
@@ -29,6 +40,8 @@ export type OrderDraftType = {
   userId: string | null;
   items: CartItemType[];
   shipping: ShippingFormType;
+  shippingMethod: string;
+  shippingCost: number;
   paymentMethod: PaymentMethodType;
   subtotal: number;
   total: number;
