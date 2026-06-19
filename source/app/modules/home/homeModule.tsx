@@ -1,21 +1,32 @@
 import { useEffect } from "react";
 import { useHomeActions } from "@app/modules/home/hooks/useHomeActions";
-import HomeFiltersInterface from "@app/modules/home/interfaces/homeFiltersInterface";
-import HomeListInterface from "@app/modules/home/interfaces/homeListInterface";
+import { useHomeProvider } from "@app/modules/home/states/homeProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import HeroInterface from "@app/modules/home/interfaces/heroInterface";
+import ValuePropsInterface from "@app/modules/home/interfaces/valuePropsInterface";
+import FeaturedGridInterface from "@app/modules/home/interfaces/featuredGridInterface";
+import ProcessSectionInterface from "@app/modules/home/interfaces/processSectionInterface";
+import CtaInterface from "@app/modules/home/interfaces/ctaInterface";
 
-// Componente de página: consume el provider y compone las interfaces.
+// Landing / presentación de marca.
 export default function HomeModule() {
-  const { handleLoadTasks } = useHomeActions();
+  const { handleLoadHome } = useHomeActions();
+  const { getHomeState } = useHomeProvider();
+  const { content, featured, loading } = getHomeState;
+
+  useDocumentHead({ title: "", description: content.heroSubtitle });
 
   useEffect(() => {
-    handleLoadTasks();
+    handleLoadHome();
   }, []);
 
   return (
-    <main className="mx-auto flex w-full max-w-3xl flex-col gap-6 p-6">
-      <h1 className="text-2xl font-semibold">Tareas</h1>
-      <HomeFiltersInterface />
-      <HomeListInterface />
-    </main>
+    <div className="flex flex-col">
+      <HeroInterface content={content} />
+      <ValuePropsInterface items={content.valueProps} />
+      <FeaturedGridInterface products={featured} loading={loading} />
+      <ProcessSectionInterface content={content} />
+      <CtaInterface />
+    </div>
   );
 }

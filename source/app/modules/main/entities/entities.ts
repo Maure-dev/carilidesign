@@ -45,6 +45,55 @@ export type ImageType = {
 // Custom claims del token de Firebase Auth.
 export type AdminClaimsType = { admin?: boolean };
 
+// ── Producto (dominio compartido: catálogo, detalle, home, carrito, admin) ──
+
+export type CustomizationOptionKindType = "size" | "glaze" | "shape" | "engraving";
+export type CustomizationControlType = "select" | "swatch" | "text";
+
+export type CustomizationChoiceType = {
+  id: string;
+  label: string;
+  priceDelta: number; // ARS entero, se suma al precio base
+  swatchColor?: string; // color para el control 'swatch'
+};
+
+export type CustomizationOptionType = {
+  id: string;
+  kind: CustomizationOptionKindType;
+  control: CustomizationControlType;
+  label: string;
+  required: boolean;
+  choices: CustomizationChoiceType[];
+  maxLength?: number; // para grabado (control 'text')
+};
+
+export type ProductDimensionsType = {
+  widthCm: number;
+  depthCm: number;
+  heightCm: number;
+};
+
+export type ProductType = {
+  id: string;
+  slug: string;
+  name: string;
+  description: string;
+  shortDescription?: string;
+  category: string;
+  shape?: string;
+  baseColor?: string;
+  priceArs: number; // ARS entero
+  images: ImageType[];
+  customizationOptions: CustomizationOptionType[];
+  stock: number;
+  isActive: boolean;
+  isFeatured: boolean;
+  dimensions?: ProductDimensionsType;
+  material?: string;
+  createdAt?: string;
+  updatedAt?: string;
+};
+
 // ── Sesión global ──
 
 export type AuthStatusType = "loading" | "authenticated" | "guest";

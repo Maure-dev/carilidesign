@@ -26,6 +26,7 @@
   /* ── Tipografía ── */
   --font-display: "Fraunces Variable", "Cormorant Garamond", Georgia, serif;
   --font-sans: "Inter Variable", "Work Sans", system-ui, sans-serif;
+  --font-script: "Pinyon Script", "Segoe Script", cursive;
 
   /* ── Radios y sombras suaves ── */
   --radius-buttons: 0.5rem;

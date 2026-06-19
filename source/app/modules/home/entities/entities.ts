@@ -1,29 +1,29 @@
 import type { Dispatch, SetStateAction } from "react";
+import type { ProductType } from "@app/modules/main/entities/entities";
 
-// Entidad de dominio del módulo.
-export type TaskType = {
-  id: number;
+export type ValuePropType = {
   title: string;
-  done: boolean;
-  createdAt: string;
+  text: string;
 };
 
-// Estado completo de la página (un único objeto por módulo).
+export type HomeContentType = {
+  heroTitle: string;
+  heroSubtitle: string;
+  heroImageUrl?: string;
+  valueProps: ValuePropType[];
+  processTitle: string;
+  processText: string;
+  processImageUrl?: string;
+};
+
 export type HomeDataType = {
   loading: boolean;
-  data: TaskType[];
-  filters: {
-    search: string;
-  };
+  featured: ProductType[];
+  content: HomeContentType;
+  error: string | null;
 };
 
-// Par getter/setter expuesto por el provider.
 export type HomeContextType = {
   getHomeState: HomeDataType;
   setHomeState: Dispatch<SetStateAction<HomeDataType>>;
-};
-
-// Tipos de servicios.
-export type HomeGetTasksResponseType = {
-  data: TaskType[];
 };

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="220 57 160 160" width="64" height="64" role="img" aria-label="Carili Design">
+<rect x="220" y="57" width="160" height="160" rx="30" fill="#f6f1e9"/>
+<path d="M236 190 L364 190" fill="none" stroke="#2a2521" stroke-width="4" stroke-linecap="round"/>
+<path d="M248 150 C249 173 268 190 300 190 C332 190 351 173 352 150" fill="none" stroke="#c06b4e" stroke-width="5.4" stroke-linecap="round"/>
+<path d="M248 150 L352 150" fill="none" stroke="#c06b4e" stroke-width="3.4" stroke-linecap="round"/>
+<path d="M350 150 L350 104 C350 88 336 84 320 86 C312 87 306 92 306 104" fill="none" stroke="#2a2521" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M306 113 C309.4 118 311 122 311 125.8 C311 129.4 308.8 131.6 306 131.6 C303.2 131.6 301 129.4 301 125.8 C301 122 302.6 118 306 113 Z" fill="#c06b4e"/>
+</svg>

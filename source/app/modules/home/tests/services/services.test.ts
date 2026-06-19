@@ -1,28 +1,16 @@
-import { describe, it, expect, vi, beforeEach } from "vitest";
-import axios from "axios";
+import { describe, it, expect } from "vitest";
+import { getFeaturedProducts, getHomeContent } from "@app/modules/home/services/services";
+import { DEFAULT_HOME_CONTENT } from "@app/modules/home/constants/constants";
 
-vi.mock("axios");
+describe("home services (fallback seed)", () => {
+  it("getFeaturedProducts devuelve productos destacados del seed", async () => {
+    const products = await getFeaturedProducts(3);
+    expect(products.length).toBeGreaterThan(0);
+    expect(products.every((p) => p.isFeatured && p.isActive)).toBe(true);
+  });
 
-beforeEach(() => {
-  vi.clearAllMocks();
-});
-
-import { getTasks } from "@app/modules/home/services/services";
-
-describe("home services", () => {
-  describe("getTasks", () => {
-    it("should call GET with the correct URL", async () => {
-      const mockResponse = {
-        data: { data: [{ id: 1, title: "Tarea", done: false, createdAt: "2026-06-18" }] }
-      };
-      vi.mocked(axios.get).mockResolvedValueOnce(
-        mockResponse as Awaited<ReturnType<typeof getTasks>>
-      );
-
-      const result = await getTasks();
-
-      expect(axios.get).toHaveBeenCalledWith("/api/tasks");
-      expect(result).toEqual(mockResponse);
-    });
+  it("getHomeContent devuelve el contenido por defecto sin Firebase", async () => {
+    const content = await getHomeContent();
+    expect(content).toEqual(DEFAULT_HOME_CONTENT);
   });
 });

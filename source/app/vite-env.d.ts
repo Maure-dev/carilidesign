@@ -17,3 +17,4 @@ interface ImportMeta {
 // Paquetes de fuentes self-host (sólo CSS, sin tipos).
 declare module "@fontsource-variable/fraunces";
 declare module "@fontsource-variable/inter";
+declare module "@fontsource/pinyon-script";
