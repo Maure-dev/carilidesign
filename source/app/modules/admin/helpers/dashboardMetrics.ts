@@ -1,5 +1,5 @@
-import type { ProductType } from "@app/modules/main/entities/entities";
 import type { AdminMessageType, AdminOrderType } from "@app/modules/admin/entities/entities";
+import type { ProductType } from "@app/modules/main/entities/entities";
 
 export type DashboardMetricsType = {
   totalProducts: number;

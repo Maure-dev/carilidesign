@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
 import { useAdminActions } from "@app/modules/admin/hooks/useAdminActions";
+import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
 import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
-import ProductListInterface from "./interfaces/productListInterface";
-import ProductFormInterface from "./interfaces/productFormInterface";
+import { useEffect } from "react";
 import AdminProductPreviewInterface from "./interfaces/adminProductPreviewInterface";
+import ProductFormInterface from "./interfaces/productFormInterface";
+import ProductListInterface from "./interfaces/productListInterface";
 
 export default function AdminProductsModule() {
   const { getAdminState } = useAdminProvider();

@@ -1,5 +1,5 @@
-import type { Dispatch, SetStateAction } from "react";
 import type { CartItemType, PaymentMethodType } from "@app/modules/main/entities/entities";
+import type { Dispatch, SetStateAction } from "react";
 
 export type ShippingFormType = {
   fullName: string;

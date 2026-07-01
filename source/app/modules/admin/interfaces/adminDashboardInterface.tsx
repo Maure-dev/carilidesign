@@ -1,10 +1,10 @@
-import { AlertTriangle, CheckCircle2, ClipboardList, Mail, Package, Wallet } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
 import type { DashboardMetricsType } from "@app/modules/admin/helpers/dashboardMetrics";
 import { formatMoney } from "@app/modules/main/helpers/formatMoney";
+import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 import CardInterface from "@app/modules/main/interfaces/cardInterface";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
-import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
+import type { LucideIcon } from "lucide-react";
+import { AlertTriangle, CheckCircle2, ClipboardList, Mail, Package, Wallet } from "lucide-react";
 
 type Props = { metrics: DashboardMetricsType };
 

@@ -1,5 +1,5 @@
-import type { Dispatch, SetStateAction } from "react";
 import type { ProductType } from "@app/modules/main/entities/entities";
+import type { Dispatch, SetStateAction } from "react";
 
 // Selección de personalización: optionId -> choiceId (select/swatch) o texto (engraving).
 export type ProductSelectionType = Record<string, string>;

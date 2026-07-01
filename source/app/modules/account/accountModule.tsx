@@ -1,14 +1,14 @@
-import { useEffect } from "react";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useSession } from "@app/modules/main/hooks/useSession";
-import { useNotification } from "@app/modules/main/hooks/useNotification";
-import { useAccountProvider } from "@app/modules/account/states/accountProvider";
 import { useAccountActions } from "@app/modules/account/hooks/useAccountActions";
-import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
-import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
-import AccountOrdersListInterface from "@app/modules/account/interfaces/accountOrdersListInterface";
 import AccountOrderDetailInterface from "@app/modules/account/interfaces/accountOrderDetailInterface";
+import AccountOrdersListInterface from "@app/modules/account/interfaces/accountOrdersListInterface";
+import { useAccountProvider } from "@app/modules/account/states/accountProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { useNotification } from "@app/modules/main/hooks/useNotification";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
+import { useSession } from "@app/modules/main/hooks/useSession";
+import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
+import { useEffect } from "react";
 
 export default function AccountModule() {
   const router = useRouter();

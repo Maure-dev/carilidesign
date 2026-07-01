@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Trash2, Upload } from "lucide-react";
 import type { ProductDraftType } from "@app/modules/admin/entities/entities";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
-import IconInterface from "@app/modules/main/interfaces/iconInterface";
 import FieldInterface from "@app/modules/main/interfaces/fieldInterface";
+import IconInterface from "@app/modules/main/interfaces/iconInterface";
 import { InputInterface, TextareaInterface } from "@app/modules/main/interfaces/inputInterface";
+import { Trash2, Upload } from "lucide-react";
+import { useState } from "react";
 
 type Props = {
   draft: ProductDraftType;

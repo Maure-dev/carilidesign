@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useContactProvider } from "@app/modules/contact/states/contactProvider";
-import { useContactActions } from "@app/modules/contact/hooks/useContactActions";
 import { getMapSrc } from "@app/modules/contact/helpers/mapSrc";
+import { useContactActions } from "@app/modules/contact/hooks/useContactActions";
 import ContactFormInterface from "@app/modules/contact/interfaces/contactFormInterface";
 import ContactInfoInterface from "@app/modules/contact/interfaces/contactInfoInterface";
+import { useContactProvider } from "@app/modules/contact/states/contactProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { useEffect } from "react";
 
 export default function ContactModule() {
   const { getContactState } = useContactProvider();

@@ -1,7 +1,7 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { ContentDataType } from "@app/modules/content/entities/entities";
-import { useContext, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/content/constants/constants";
+import type { ContentDataType } from "@app/modules/content/entities/entities";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useState } from "react";
 import { ContentContext } from "./contentContext";
 
 export default function ContentProvider({ children }: ChildrenType) {

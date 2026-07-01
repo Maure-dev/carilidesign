@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { validateCheckout } from "@app/modules/checkout/helpers/validateCheckout";
 import type { ShippingFormType } from "@app/modules/checkout/entities/entities";
+import { validateCheckout } from "@app/modules/checkout/helpers/validateCheckout";
+import { describe, expect, it } from "vitest";
 
 const valid: ShippingFormType = {
   fullName: "Ana Pérez",

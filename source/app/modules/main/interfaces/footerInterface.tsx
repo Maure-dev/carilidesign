@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
+import { Link } from "react-router";
 import LogoInterface from "./logoInterface";
 
 const SECTIONS = [

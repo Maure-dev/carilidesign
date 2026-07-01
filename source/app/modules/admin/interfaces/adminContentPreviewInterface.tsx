@@ -1,20 +1,20 @@
-import { useLayoutEffect, useRef, useState } from "react";
-import { Monitor, Smartphone } from "lucide-react";
 import type {
   AdminContentDocType,
   AdminContentKindType
 } from "@app/modules/admin/entities/entities";
-import type { HomeContentType } from "@app/modules/home/entities/entities";
-import type { PageContentType } from "@app/modules/content/entities/entities";
 import type { ContactInfoType } from "@app/modules/contact/entities/entities";
+import ContactInfoInterface from "@app/modules/contact/interfaces/contactInfoInterface";
+import type { PageContentType } from "@app/modules/content/entities/entities";
+import ContentPageInterface from "@app/modules/content/interfaces/contentPageInterface";
+import type { HomeContentType } from "@app/modules/home/entities/entities";
+import HeroInterface from "@app/modules/home/interfaces/heroInterface";
+import ProcessSectionInterface from "@app/modules/home/interfaces/processSectionInterface";
+import ValuePropsInterface from "@app/modules/home/interfaces/valuePropsInterface";
+import { formatMoney } from "@app/modules/main/helpers/formatMoney";
 import IconButtonInterface from "@app/modules/main/interfaces/iconButtonInterface";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
-import { formatMoney } from "@app/modules/main/helpers/formatMoney";
-import HeroInterface from "@app/modules/home/interfaces/heroInterface";
-import ValuePropsInterface from "@app/modules/home/interfaces/valuePropsInterface";
-import ProcessSectionInterface from "@app/modules/home/interfaces/processSectionInterface";
-import ContentPageInterface from "@app/modules/content/interfaces/contentPageInterface";
-import ContactInfoInterface from "@app/modules/contact/interfaces/contactInfoInterface";
+import { Monitor, Smartphone } from "lucide-react";
+import { useLayoutEffect, useRef, useState } from "react";
 
 type Props = {
   kind: AdminContentKindType;

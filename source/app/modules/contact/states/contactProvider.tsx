@@ -1,7 +1,7 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { ContactDataType } from "@app/modules/contact/entities/entities";
-import { useContext, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/contact/constants/constants";
+import type { ContactDataType } from "@app/modules/contact/entities/entities";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useState } from "react";
 import { ContactContext } from "./contactContext";
 
 export default function ContactProvider({ children }: ChildrenType) {

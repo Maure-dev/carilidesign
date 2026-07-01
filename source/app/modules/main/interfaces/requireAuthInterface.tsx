@@ -1,9 +1,9 @@
+import { useNotification } from "@app/modules/main/hooks/useNotification";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
+import { useSession } from "@app/modules/main/hooks/useSession";
+import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
 import { useEffect } from "react";
 import { Outlet } from "react-router";
-import { useSession } from "@app/modules/main/hooks/useSession";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
-import { useNotification } from "@app/modules/main/hooks/useNotification";
-import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
 
 type Props = {
   requireAdmin?: boolean;

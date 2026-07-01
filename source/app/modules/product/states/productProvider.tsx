@@ -1,7 +1,7 @@
 import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { INITIAL_STATE } from "@app/modules/product/constants/constants";
 import type { ProductDataType } from "@app/modules/product/entities/entities";
 import { useContext, useState } from "react";
-import { INITIAL_STATE } from "@app/modules/product/constants/constants";
 import { ProductContext } from "./productContext";
 
 export default function ProductProvider({ children }: ChildrenType) {

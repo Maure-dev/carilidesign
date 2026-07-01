@@ -1,15 +1,15 @@
 import type { ProductType } from "@app/modules/main/entities/entities";
-import type { ProductSelectionType } from "@app/modules/product/entities/entities";
-import { useProductProvider } from "@app/modules/product/states/productProvider";
-import { useNotification } from "@app/modules/main/hooks/useNotification";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
 import { useCart } from "@app/modules/main/hooks/useCart";
 import { useCatalog } from "@app/modules/main/hooks/useCatalog";
+import { useNotification } from "@app/modules/main/hooks/useNotification";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
+import type { ProductSelectionType } from "@app/modules/product/entities/entities";
 import { computePrice } from "@app/modules/product/helpers/computePrice";
 import {
   buildSelectionSnapshot,
   validateSelection
 } from "@app/modules/product/helpers/validateSelection";
+import { useProductProvider } from "@app/modules/product/states/productProvider";
 
 // Preselecciona la primera opción de cada selector/swatch requerido.
 function defaultSelection(product: ProductType): ProductSelectionType {

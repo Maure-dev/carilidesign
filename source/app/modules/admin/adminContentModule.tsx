@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
-import { useAdminActions } from "@app/modules/admin/hooks/useAdminActions";
 import { CONTENT_SECTIONS } from "@app/modules/admin/constants/constants";
+import { useAdminActions } from "@app/modules/admin/hooks/useAdminActions";
+import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { useEffect } from "react";
 import AdminContentEditorInterface from "./interfaces/adminContentEditorInterface";
 import AdminContentPreviewInterface from "./interfaces/adminContentPreviewInterface";
 

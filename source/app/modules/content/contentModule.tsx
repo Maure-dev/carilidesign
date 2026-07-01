@@ -1,12 +1,12 @@
-import { useEffect } from "react";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useContentProvider } from "@app/modules/content/states/contentProvider";
-import { useContentActions } from "@app/modules/content/hooks/useContentActions";
 import { getPageSlug } from "@app/modules/content/helpers/pageSlug";
-import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
-import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import { useContentActions } from "@app/modules/content/hooks/useContentActions";
 import ContentPageInterface from "@app/modules/content/interfaces/contentPageInterface";
+import { useContentProvider } from "@app/modules/content/states/contentProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
+import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
+import { useEffect } from "react";
 
 export default function ContentModule() {
   const router = useRouter();

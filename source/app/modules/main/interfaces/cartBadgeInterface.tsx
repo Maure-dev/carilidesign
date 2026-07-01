@@ -1,7 +1,7 @@
+import { useCart } from "@app/modules/main/hooks/useCart";
+import { ShoppingCart } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
-import { ShoppingCart } from "lucide-react";
-import { useCart } from "@app/modules/main/hooks/useCart";
 import IconInterface from "./iconInterface";
 
 // Ícono de carrito con contador. Pulsa cuando aumenta la cantidad (feedback de "agregado").

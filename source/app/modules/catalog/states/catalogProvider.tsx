@@ -1,7 +1,7 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { CatalogDataType } from "@app/modules/catalog/entities/entities";
-import { useContext, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/catalog/constants/constants";
+import type { CatalogDataType } from "@app/modules/catalog/entities/entities";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useState } from "react";
 import { CatalogContext } from "./catalogContext";
 
 export default function CatalogProvider({ children }: ChildrenType) {

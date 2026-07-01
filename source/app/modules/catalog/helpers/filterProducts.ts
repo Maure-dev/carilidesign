@@ -1,5 +1,5 @@
-import type { ProductType } from "@app/modules/main/entities/entities";
 import type { CatalogFiltersType, CatalogSortType } from "@app/modules/catalog/entities/entities";
+import type { ProductType } from "@app/modules/main/entities/entities";
 
 // Función pura: filtra por búsqueda/forma y ordena según el criterio elegido.
 export function filterAndSort(

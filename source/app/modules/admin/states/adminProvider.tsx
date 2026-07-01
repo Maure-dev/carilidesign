@@ -1,7 +1,7 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { AdminDataType } from "@app/modules/admin/entities/entities";
-import { useContext, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/admin/constants/constants";
+import type { AdminDataType } from "@app/modules/admin/entities/entities";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useState } from "react";
 import { AdminContext } from "./adminContext";
 
 export default function AdminProvider({ children }: ChildrenType) {

@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from "react";
 import type {
   ImageType,
   OrderStatusType,
@@ -6,6 +5,7 @@ import type {
   PaymentStatusType,
   ProductType
 } from "@app/modules/main/entities/entities";
+import type { Dispatch, SetStateAction } from "react";
 
 export type ProductDraftType = {
   id?: string;

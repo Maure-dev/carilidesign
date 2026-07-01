@@ -1,8 +1,8 @@
 import type { AdminOrderType } from "@app/modules/admin/entities/entities";
-import type { OrderStatusType } from "@app/modules/main/entities/entities";
-import PriceInterface from "@app/modules/main/interfaces/priceInterface";
-import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
 import { nextStatuses } from "@app/modules/admin/helpers/orderTransitions";
+import type { OrderStatusType } from "@app/modules/main/entities/entities";
+import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import PriceInterface from "@app/modules/main/interfaces/priceInterface";
 
 type Props = {
   orders: AdminOrderType[];

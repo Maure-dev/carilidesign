@@ -1,5 +1,3 @@
-import { type ChangeEvent, useState } from "react";
-import { Upload } from "lucide-react";
 import type {
   AdminContentDocType,
   AdminContentKindType,
@@ -11,6 +9,8 @@ import type {
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
 import { controlClass } from "@app/modules/main/interfaces/inputInterface";
+import { Upload } from "lucide-react";
+import { type ChangeEvent, useState } from "react";
 
 type UploadImageType = (file: File) => Promise<string>;
 

@@ -1,9 +1,9 @@
-import { describe, it, expect } from "vitest";
+import type { ProductType } from "@app/modules/main/entities/entities";
 import {
   buildSelectionSnapshot,
   validateSelection
 } from "@app/modules/product/helpers/validateSelection";
-import type { ProductType } from "@app/modules/main/entities/entities";
+import { describe, expect, it } from "vitest";
 
 const product: ProductType = {
   id: "p1",

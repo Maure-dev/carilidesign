@@ -1,10 +1,10 @@
-import type { Dispatch, SetStateAction } from "react";
 import type {
   CartItemType,
   OrderStatusType,
   PaymentMethodType,
   PaymentStatusType
 } from "@app/modules/main/entities/entities";
+import type { Dispatch, SetStateAction } from "react";
 
 export type OrderType = {
   id: string;

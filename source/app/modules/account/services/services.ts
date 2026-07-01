@@ -1,6 +1,6 @@
 import type { OrderType } from "@app/modules/account/entities/entities";
-import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
+import { collection, doc, getDoc, getDocs, orderBy, query, where } from "firebase/firestore";
 
 export async function getMyOrders(uid: string | null): Promise<OrderType[]> {
   if (!isFirebaseConfigured || !db || !uid) {

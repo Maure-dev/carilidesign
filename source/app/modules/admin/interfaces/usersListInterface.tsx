@@ -1,6 +1,6 @@
 import type { AdminUserType } from "@app/modules/admin/entities/entities";
-import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 import BadgeInterface from "@app/modules/main/interfaces/badgeInterface";
+import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
 
 type Props = {

@@ -1,7 +1,7 @@
 import type { ContactFormType } from "@app/modules/contact/entities/entities";
+import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
 import axios from "axios";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
-import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
 
 // Guarda el mensaje en Firestore (los mensajes SÍ usan Firebase).
 export async function saveContactMessage(form: ContactFormType): Promise<void> {

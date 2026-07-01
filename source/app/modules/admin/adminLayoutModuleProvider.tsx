@@ -1,6 +1,6 @@
-import { Outlet } from "react-router";
 import AdminProvider from "@app/modules/admin/states/adminProvider";
 import NotificationInterface from "@app/modules/main/interfaces/notificationInterface";
+import { Outlet } from "react-router";
 import AdminSidebarInterface from "./interfaces/adminSidebarInterface";
 import AdminTopbarInterface from "./interfaces/adminTopbarInterface";
 

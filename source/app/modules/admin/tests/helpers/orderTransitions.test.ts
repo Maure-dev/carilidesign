@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import { canTransition, nextStatuses } from "@app/modules/admin/helpers/orderTransitions";
+import { describe, expect, it } from "vitest";
 
 describe("orderTransitions", () => {
   it("permite transiciones válidas", () => {

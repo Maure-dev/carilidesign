@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import PriceInterface from "@app/modules/main/interfaces/priceInterface";
+import { Link } from "react-router";
 
 type Props = {
   total: number;

@@ -1,7 +1,7 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { AccountDataType } from "@app/modules/account/entities/entities";
-import { useContext, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/account/constants/constants";
+import type { AccountDataType } from "@app/modules/account/entities/entities";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useState } from "react";
 import { AccountContext } from "./accountContext";
 
 export default function AccountProvider({ children }: ChildrenType) {

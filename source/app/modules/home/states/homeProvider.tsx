@@ -1,7 +1,7 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { HomeDataType } from "@app/modules/home/entities/entities";
-import { useContext, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/home/constants/constants";
+import type { HomeDataType } from "@app/modules/home/entities/entities";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useState } from "react";
 import { HomeContext } from "./homeContext";
 
 export default function HomeProvider({ children }: ChildrenType) {

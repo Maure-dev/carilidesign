@@ -1,10 +1,10 @@
-import type { ReactNode } from "react";
-import { describe, it, expect } from "vitest";
-import { act, renderHook } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
-import MainProvider from "@app/modules/main/states/mainProvider";
-import HomeProvider, { useHomeProvider } from "@app/modules/home/states/homeProvider";
 import { useHomeActions } from "@app/modules/home/hooks/useHomeActions";
+import HomeProvider, { useHomeProvider } from "@app/modules/home/states/homeProvider";
+import MainProvider from "@app/modules/main/states/mainProvider";
+import { act, renderHook } from "@testing-library/react";
+import type { ReactNode } from "react";
+import { MemoryRouter } from "react-router";
+import { describe, expect, it } from "vitest";
 
 function wrapper({ children }: { children: ReactNode }) {
   return (

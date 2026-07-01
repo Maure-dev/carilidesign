@@ -1,7 +1,7 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { AuthDataType } from "@app/modules/auth/entities/entities";
-import { useContext, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/auth/constants/constants";
+import type { AuthDataType } from "@app/modules/auth/entities/entities";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useState } from "react";
 import { AuthContext } from "./authContext";
 
 export default function AuthProvider({ children }: ChildrenType) {

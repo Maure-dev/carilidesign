@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
-import { useAdminActions } from "@app/modules/admin/hooks/useAdminActions";
 import { computeDashboardMetrics } from "@app/modules/admin/helpers/dashboardMetrics";
+import { useAdminActions } from "@app/modules/admin/hooks/useAdminActions";
+import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { useEffect } from "react";
 import AdminDashboardInterface from "./interfaces/adminDashboardInterface";
 
 export default function AdminDashboardModule() {

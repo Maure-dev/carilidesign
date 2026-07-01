@@ -1,11 +1,11 @@
-import { useEffect } from "react";
-import { useCatalogProvider } from "@app/modules/catalog/states/catalogProvider";
-import { useCatalogActions } from "@app/modules/catalog/hooks/useCatalogActions";
 import { filterAndSort } from "@app/modules/catalog/helpers/filterProducts";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { ProductCardSkeletonInterface } from "@app/modules/main/interfaces/skeletonInterface";
+import { useCatalogActions } from "@app/modules/catalog/hooks/useCatalogActions";
 import CatalogToolbarInterface from "@app/modules/catalog/interfaces/catalogToolbarInterface";
 import ProductGridInterface from "@app/modules/catalog/interfaces/productGridInterface";
+import { useCatalogProvider } from "@app/modules/catalog/states/catalogProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { ProductCardSkeletonInterface } from "@app/modules/main/interfaces/skeletonInterface";
+import { useEffect } from "react";
 
 export default function CatalogModule() {
   const { handleLoadProducts } = useCatalogActions();

@@ -1,7 +1,7 @@
-import type { ReactElement, ReactNode } from "react";
-import { render, type RenderOptions, type RenderResult } from "@testing-library/react";
-import { MemoryRouter } from "react-router";
 import MainProvider from "@app/modules/main/states/mainProvider";
+import { type RenderOptions, type RenderResult, render } from "@testing-library/react";
+import type { ReactElement, ReactNode } from "react";
+import { MemoryRouter } from "react-router";
 
 type ProvidersOptions = {
   initialEntries?: string[];

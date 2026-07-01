@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
 import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useProductProvider } from "@app/modules/product/states/productProvider";
-import { useProductActions } from "@app/modules/product/hooks/useProductActions";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
+import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
 import { computePrice } from "@app/modules/product/helpers/computePrice";
 import { validateSelection } from "@app/modules/product/helpers/validateSelection";
-import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
-import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import { useProductActions } from "@app/modules/product/hooks/useProductActions";
+import AddToCartInterface from "@app/modules/product/interfaces/addToCartInterface";
+import CustomizationPanelInterface from "@app/modules/product/interfaces/customizationPanelInterface";
 import ProductGalleryInterface from "@app/modules/product/interfaces/productGalleryInterface";
 import ProductInfoInterface from "@app/modules/product/interfaces/productInfoInterface";
-import CustomizationPanelInterface from "@app/modules/product/interfaces/customizationPanelInterface";
-import AddToCartInterface from "@app/modules/product/interfaces/addToCartInterface";
+import { useProductProvider } from "@app/modules/product/states/productProvider";
+import { useEffect } from "react";
 
 export default function ProductModule() {
   const router = useRouter();
@@ -69,6 +69,7 @@ export default function ProductModule() {
         />
         <AddToCartInterface
           quantity={quantity}
+          stock={product.stock}
           onQuantity={handleSetQuantity}
           onAdd={() => handleAddToCart(product, selection, quantity)}
         />

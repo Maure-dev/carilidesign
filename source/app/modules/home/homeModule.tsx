@@ -1,14 +1,14 @@
-import { useEffect } from "react";
 import { useHomeActions } from "@app/modules/home/hooks/useHomeActions";
+import CtaInterface from "@app/modules/home/interfaces/ctaInterface";
+import FeaturedGridInterface from "@app/modules/home/interfaces/featuredGridInterface";
+import HeroInterface from "@app/modules/home/interfaces/heroInterface";
+import ProcessSectionInterface from "@app/modules/home/interfaces/processSectionInterface";
+import ValuePropsInterface from "@app/modules/home/interfaces/valuePropsInterface";
 import { useHomeProvider } from "@app/modules/home/states/homeProvider";
 import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
 import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
-import HeroInterface from "@app/modules/home/interfaces/heroInterface";
-import ValuePropsInterface from "@app/modules/home/interfaces/valuePropsInterface";
-import FeaturedGridInterface from "@app/modules/home/interfaces/featuredGridInterface";
-import ProcessSectionInterface from "@app/modules/home/interfaces/processSectionInterface";
-import CtaInterface from "@app/modules/home/interfaces/ctaInterface";
+import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
+import { useEffect } from "react";
 
 // Landing / presentación de marca.
 export default function HomeModule() {

@@ -1,7 +1,7 @@
-import { describe, it, expect } from "vitest";
-import type { ProductType } from "@app/modules/main/entities/entities";
 import type { AdminMessageType, AdminOrderType } from "@app/modules/admin/entities/entities";
 import { computeDashboardMetrics } from "@app/modules/admin/helpers/dashboardMetrics";
+import type { ProductType } from "@app/modules/main/entities/entities";
+import { describe, expect, it } from "vitest";
 
 function product(overrides: Partial<ProductType> = {}): ProductType {
   return {

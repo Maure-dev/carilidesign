@@ -3,16 +3,16 @@ import type {
   ShippingFormType,
   ShippingOptionType
 } from "@app/modules/checkout/entities/entities";
-import type { PaymentMethodType } from "@app/modules/main/entities/entities";
+import { validateCheckout } from "@app/modules/checkout/helpers/validateCheckout";
+import { createOrder, createPreference } from "@app/modules/checkout/services/services";
 import { useCheckoutProvider } from "@app/modules/checkout/states/checkoutProvider";
+import type { PaymentMethodType } from "@app/modules/main/entities/entities";
 import { useCart } from "@app/modules/main/hooks/useCart";
-import { useSession } from "@app/modules/main/hooks/useSession";
 import { useNotification } from "@app/modules/main/hooks/useNotification";
 import { useRouter } from "@app/modules/main/hooks/useRouter";
+import { useSession } from "@app/modules/main/hooks/useSession";
 import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
 import { isFirebaseConfigured } from "@app/modules/main/services/firebase";
-import { createOrder, createPreference } from "@app/modules/checkout/services/services";
-import { validateCheckout } from "@app/modules/checkout/helpers/validateCheckout";
 
 export const useCheckoutActions = () => {
   const { getCheckoutState, setCheckoutState } = useCheckoutProvider();

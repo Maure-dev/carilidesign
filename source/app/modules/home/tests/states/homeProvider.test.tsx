@@ -1,8 +1,8 @@
-import type { ReactNode } from "react";
-import { describe, it, expect } from "vitest";
-import { renderHook } from "@testing-library/react";
-import HomeProvider, { useHomeProvider } from "@app/modules/home/states/homeProvider";
 import { INITIAL_STATE } from "@app/modules/home/constants/constants";
+import HomeProvider, { useHomeProvider } from "@app/modules/home/states/homeProvider";
+import { renderHook } from "@testing-library/react";
+import type { ReactNode } from "react";
+import { describe, expect, it } from "vitest";
 
 function wrapper({ children }: { children: ReactNode }) {
   return <HomeProvider>{children}</HomeProvider>;

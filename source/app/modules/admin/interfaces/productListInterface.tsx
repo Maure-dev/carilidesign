@@ -1,11 +1,11 @@
-import { Pencil, Plus, Trash2 } from "lucide-react";
 import type { ProductType } from "@app/modules/main/entities/entities";
-import PriceInterface from "@app/modules/main/interfaces/priceInterface";
-import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 import BadgeInterface from "@app/modules/main/interfaces/badgeInterface";
+import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
+import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
 import IconButtonInterface from "@app/modules/main/interfaces/iconButtonInterface";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
-import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import PriceInterface from "@app/modules/main/interfaces/priceInterface";
+import { Pencil, Plus, Trash2 } from "lucide-react";
 
 type Props = {
   products: ProductType[];

@@ -1,14 +1,14 @@
+import { INITIAL_STATE } from "@app/modules/main/constants/constants";
 import type {
   ChildrenType,
   CurrentUserType,
   MainDataType
 } from "@app/modules/main/entities/entities";
-import { useContext, useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
-import { INITIAL_STATE } from "@app/modules/main/constants/constants";
 import { loadCartItems, saveCartItems } from "@app/modules/main/helpers/cartStorage";
-import { auth } from "@app/modules/main/services/firebase";
 import { fetchSiteBootstrap } from "@app/modules/main/services/bootstrap";
+import { auth } from "@app/modules/main/services/firebase";
+import { onAuthStateChanged } from "firebase/auth";
+import { useContext, useEffect, useState } from "react";
 import { MainContext } from "./mainContext";
 
 export default function MainProvider({ children }: ChildrenType) {

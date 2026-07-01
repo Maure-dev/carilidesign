@@ -1,5 +1,5 @@
-import { Check } from "lucide-react";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
+import { Check } from "lucide-react";
 
 type Props = {
   current: number; // 0 = Carrito, 1 = Envío, 2 = Pago

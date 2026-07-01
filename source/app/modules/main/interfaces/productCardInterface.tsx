@@ -1,5 +1,5 @@
-import { Link } from "react-router";
 import type { ProductType } from "@app/modules/main/entities/entities";
+import { Link } from "react-router";
 import LazyImageInterface from "./lazyImageInterface";
 import PriceInterface from "./priceInterface";
 

@@ -1,7 +1,7 @@
-import { Link } from "react-router";
 import type { ProductType } from "@app/modules/main/entities/entities";
 import ProductCardInterface from "@app/modules/main/interfaces/productCardInterface";
 import { ProductCardSkeletonInterface } from "@app/modules/main/interfaces/skeletonInterface";
+import { Link } from "react-router";
 
 type Props = {
   products: ProductType[];

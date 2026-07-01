@@ -1,8 +1,8 @@
-import { useEffect } from "react";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
 import { useAdminActions } from "@app/modules/admin/hooks/useAdminActions";
+import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
 import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
+import { useEffect } from "react";
 import OrderListInterface from "./interfaces/orderListInterface";
 
 export default function AdminOrdersModule() {

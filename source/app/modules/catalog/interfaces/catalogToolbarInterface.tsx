@@ -1,9 +1,9 @@
-import { Search } from "lucide-react";
 import type { CatalogSortType } from "@app/modules/catalog/entities/entities";
-import { useCatalogProvider } from "@app/modules/catalog/states/catalogProvider";
-import { useCatalogActions } from "@app/modules/catalog/hooks/useCatalogActions";
 import { availableShapes } from "@app/modules/catalog/helpers/filterProducts";
+import { useCatalogActions } from "@app/modules/catalog/hooks/useCatalogActions";
+import { useCatalogProvider } from "@app/modules/catalog/states/catalogProvider";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
+import { Search } from "lucide-react";
 
 function chipClass(active: boolean): string {
   return `rounded-full border px-3 py-1 text-sm capitalize transition-colors ${

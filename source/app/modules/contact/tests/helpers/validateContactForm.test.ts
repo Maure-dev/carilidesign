@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import { validateContactForm } from "@app/modules/contact/helpers/validateContactForm";
+import { describe, expect, it } from "vitest";
 
 describe("validateContactForm", () => {
   it("acepta un formulario válido", () => {

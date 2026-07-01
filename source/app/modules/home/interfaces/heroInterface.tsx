@@ -1,6 +1,6 @@
 import type { HomeContentType } from "@app/modules/home/entities/entities";
-import LazyImageInterface from "@app/modules/main/interfaces/lazyImageInterface";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
+import LazyImageInterface from "@app/modules/main/interfaces/lazyImageInterface";
 
 type Props = {
   content: HomeContentType;

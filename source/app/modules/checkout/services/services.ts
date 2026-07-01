@@ -1,11 +1,11 @@
-import type { AxiosResponse } from "axios";
-import axios from "axios";
 import type {
   CreatePreferenceResponseType,
   OrderDraftType
 } from "@app/modules/checkout/entities/entities";
-import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
+import type { AxiosResponse } from "axios";
+import axios from "axios";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 
 // Crea el pedido en Firestore (pending_payment).
 export async function createOrder(draft: OrderDraftType): Promise<string> {

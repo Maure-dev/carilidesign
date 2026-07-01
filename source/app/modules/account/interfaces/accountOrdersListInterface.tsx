@@ -1,9 +1,9 @@
-import { Link } from "react-router";
 import type { OrderType } from "@app/modules/account/entities/entities";
-import PriceInterface from "@app/modules/main/interfaces/priceInterface";
+import { getStatusLabel } from "@app/modules/account/helpers/orderStatus";
 import BadgeInterface from "@app/modules/main/interfaces/badgeInterface";
 import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
-import { getStatusLabel } from "@app/modules/account/helpers/orderStatus";
+import PriceInterface from "@app/modules/main/interfaces/priceInterface";
+import { Link } from "react-router";
 
 type Props = {
   orders: OrderType[];

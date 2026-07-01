@@ -1,5 +1,5 @@
-import type { Dispatch, SetStateAction } from "react";
 import type { ProductType } from "@app/modules/main/entities/entities";
+import type { Dispatch, SetStateAction } from "react";
 
 export type ValuePropType = {
   title: string;

@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
-import { computePrice } from "@app/modules/product/helpers/computePrice";
 import type { ProductType } from "@app/modules/main/entities/entities";
+import { computePrice } from "@app/modules/product/helpers/computePrice";
+import { describe, expect, it } from "vitest";
 
 const product: ProductType = {
   id: "p1",

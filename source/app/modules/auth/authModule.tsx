@@ -1,10 +1,10 @@
-import { useEffect } from "react";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import { useAuthProvider } from "@app/modules/auth/states/authProvider";
-import { useAuthActions } from "@app/modules/auth/hooks/useAuthActions";
 import { ROUTE_TO_MODE } from "@app/modules/auth/constants/constants";
+import { useAuthActions } from "@app/modules/auth/hooks/useAuthActions";
 import AuthFormInterface from "@app/modules/auth/interfaces/authFormInterface";
+import { useAuthProvider } from "@app/modules/auth/states/authProvider";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
+import { useEffect } from "react";
 
 export default function AuthModule() {
   const router = useRouter();

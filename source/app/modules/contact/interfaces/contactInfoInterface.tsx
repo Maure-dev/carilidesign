@@ -1,6 +1,6 @@
-import { Camera, Mail, MapPin, MessageCircle } from "lucide-react";
 import type { ContactInfoType } from "@app/modules/contact/entities/entities";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
+import { Camera, Mail, MapPin, MessageCircle } from "lucide-react";
 
 type Props = {
   info: ContactInfoType;

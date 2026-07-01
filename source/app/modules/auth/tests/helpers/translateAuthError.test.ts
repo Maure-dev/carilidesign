@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import { translateAuthError } from "@app/modules/auth/helpers/translateAuthError";
+import { describe, expect, it } from "vitest";
 
 describe("translateAuthError", () => {
   it("traduce códigos conocidos de Firebase", () => {

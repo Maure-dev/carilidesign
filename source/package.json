@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "format": "biome format --write app",
-    "lint": "biome lint --write app",
+    "lint": "biome check --write app",
     "typecheck": "tsc --noEmit",
     "start": "npm run format && npm run lint && vite",
     "build": "npm run format && npm run lint && vite build",

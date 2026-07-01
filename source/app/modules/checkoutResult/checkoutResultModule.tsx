@@ -1,7 +1,7 @@
-import { Link } from "react-router";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
-import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
 import { getStatusFromPath } from "@app/modules/checkoutResult/helpers/getStatusFromPath";
+import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
+import { Link } from "react-router";
 
 const COPY = {
   success: {

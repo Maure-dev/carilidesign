@@ -1,17 +1,21 @@
-import { Minus, Plus, Trash2 } from "lucide-react";
 import type { CartItemType } from "@app/modules/main/entities/entities";
-import LazyImageInterface from "@app/modules/main/interfaces/lazyImageInterface";
-import PriceInterface from "@app/modules/main/interfaces/priceInterface";
 import IconButtonInterface from "@app/modules/main/interfaces/iconButtonInterface";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
+import LazyImageInterface from "@app/modules/main/interfaces/lazyImageInterface";
+import PriceInterface from "@app/modules/main/interfaces/priceInterface";
+import { Minus, Plus, Trash2 } from "lucide-react";
 
 type Props = {
   item: CartItemType;
+  stock: number;
   onQuantity: (id: string, quantity: number) => void;
   onRemove: (id: string) => void;
 };
 
-export default function CartItemInterface({ item, onQuantity, onRemove }: Props) {
+export default function CartItemInterface({ item, stock, onQuantity, onRemove }: Props) {
+  const atMax = item.quantity >= stock;
+  const overStock = item.quantity > stock;
+
   return (
     <div className="flex gap-4 border-b border-sand py-4">
       {item.image && (
@@ -44,6 +48,7 @@ export default function CartItemInterface({ item, onQuantity, onRemove }: Props)
             <IconButtonInterface
               label="Restar cantidad"
               size="sm"
+              disabled={item.quantity <= 1}
               onClick={() => onQuantity(item.id, item.quantity - 1)}
             >
               <IconInterface icon={Minus} size="sm" />
@@ -52,7 +57,8 @@ export default function CartItemInterface({ item, onQuantity, onRemove }: Props)
             <IconButtonInterface
               label="Sumar cantidad"
               size="sm"
-              onClick={() => onQuantity(item.id, item.quantity + 1)}
+              disabled={atMax}
+              onClick={() => onQuantity(item.id, Math.min(stock, item.quantity + 1))}
             >
               <IconInterface icon={Plus} size="sm" />
             </IconButtonInterface>
@@ -62,6 +68,13 @@ export default function CartItemInterface({ item, onQuantity, onRemove }: Props)
             className="font-display text-clay-deep"
           />
         </div>
+        {overStock ? (
+          <span className="text-xs text-error">
+            Solo quedan {stock} disponibles. Ajustá la cantidad.
+          </span>
+        ) : atMax && stock > 0 ? (
+          <span className="text-xs text-ink-soft">Máximo disponible: {stock}</span>
+        ) : null}
       </div>
     </div>
   );

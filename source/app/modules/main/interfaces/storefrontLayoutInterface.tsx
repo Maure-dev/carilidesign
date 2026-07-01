@@ -1,9 +1,9 @@
 import { Outlet, useLocation } from "react-router";
-import NotificationInterface from "./notificationInterface";
-import HeaderInterface from "./headerInterface";
-import FooterInterface from "./footerInterface";
-import SkipLinkInterface from "./skipLinkInterface";
 import ErrorBoundaryInterface from "./errorBoundaryInterface";
+import FooterInterface from "./footerInterface";
+import HeaderInterface from "./headerInterface";
+import NotificationInterface from "./notificationInterface";
+import SkipLinkInterface from "./skipLinkInterface";
 
 // Chrome del storefront (header/footer/notificaciones) con fade en el cambio de ruta.
 export default function StorefrontLayoutInterface() {

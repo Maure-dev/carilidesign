@@ -1,8 +1,8 @@
-import { NavLink } from "react-router";
-import { ClipboardList, FileText, LayoutDashboard, Mail, Package, Users } from "lucide-react";
-import type { LucideIcon } from "lucide-react";
-import LogoInterface from "@app/modules/main/interfaces/logoInterface";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
+import LogoInterface from "@app/modules/main/interfaces/logoInterface";
+import type { LucideIcon } from "lucide-react";
+import { ClipboardList, FileText, LayoutDashboard, Mail, Package, Users } from "lucide-react";
+import { NavLink } from "react-router";
 
 export type AdminNavItem = { to: string; label: string; icon: LucideIcon; end?: boolean };
 

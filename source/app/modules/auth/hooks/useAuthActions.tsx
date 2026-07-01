@@ -1,7 +1,5 @@
 import type { AuthFormType, AuthModeType } from "@app/modules/auth/entities/entities";
-import { useAuthProvider } from "@app/modules/auth/states/authProvider";
-import { useNotification } from "@app/modules/main/hooks/useNotification";
-import { useRouter } from "@app/modules/main/hooks/useRouter";
+import { translateAuthError } from "@app/modules/auth/helpers/translateAuthError";
 import {
   loginEmail,
   loginGoogle,
@@ -9,7 +7,9 @@ import {
   recoverPassword,
   registerEmail
 } from "@app/modules/auth/services/services";
-import { translateAuthError } from "@app/modules/auth/helpers/translateAuthError";
+import { useAuthProvider } from "@app/modules/auth/states/authProvider";
+import { useNotification } from "@app/modules/main/hooks/useNotification";
+import { useRouter } from "@app/modules/main/hooks/useRouter";
 
 export const useAuthActions = () => {
   const { getAuthState, setAuthState } = useAuthProvider();

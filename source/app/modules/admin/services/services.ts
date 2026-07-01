@@ -1,4 +1,3 @@
-import type { ProductType } from "@app/modules/main/entities/entities";
 import type {
   AdminContentDocType,
   AdminMessageType,
@@ -6,6 +5,9 @@ import type {
   AdminUserType,
   ProductDraftType
 } from "@app/modules/admin/entities/entities";
+import type { ProductType } from "@app/modules/main/entities/entities";
+import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
+import { fetchSiteContent, saveSiteContent } from "@app/modules/main/services/siteContent";
 import axios from "axios";
 import {
   addDoc,
@@ -19,8 +21,6 @@ import {
   setDoc,
   updateDoc
 } from "firebase/firestore";
-import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
-import { fetchSiteContent, saveSiteContent } from "@app/modules/main/services/siteContent";
 
 function requireDb() {
   if (!isFirebaseConfigured || !db) {

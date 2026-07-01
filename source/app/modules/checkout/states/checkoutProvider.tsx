@@ -1,8 +1,8 @@
-import type { ChildrenType } from "@app/modules/main/entities/entities";
-import type { CheckoutDataType } from "@app/modules/checkout/entities/entities";
-import { useContext, useEffect, useState } from "react";
 import { INITIAL_STATE } from "@app/modules/checkout/constants/constants";
+import type { CheckoutDataType } from "@app/modules/checkout/entities/entities";
 import { loadCheckout, saveCheckout } from "@app/modules/checkout/helpers/checkoutStorage";
+import type { ChildrenType } from "@app/modules/main/entities/entities";
+import { useContext, useEffect, useState } from "react";
 import { CheckoutContext } from "./checkoutContext";
 
 export default function CheckoutProvider({ children }: ChildrenType) {

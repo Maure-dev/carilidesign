@@ -1,5 +1,5 @@
-import LogoInterface from "./logoInterface";
 import ButtonInterface from "./buttonInterface";
+import LogoInterface from "./logoInterface";
 
 // Pantalla de mantenimiento: se muestra cuando no se pudo traer la data desde Firestore.
 export default function MaintenanceInterface() {

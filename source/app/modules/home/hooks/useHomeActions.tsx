@@ -1,7 +1,7 @@
 import type { HomeContentType } from "@app/modules/home/entities/entities";
 import { useHomeProvider } from "@app/modules/home/states/homeProvider";
-import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
 import { useCatalog } from "@app/modules/main/hooks/useCatalog";
+import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
 
 export const useHomeActions = () => {
   const { setHomeState } = useHomeProvider();

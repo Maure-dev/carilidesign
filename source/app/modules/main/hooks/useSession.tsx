@@ -1,6 +1,6 @@
-import { signOut } from "firebase/auth";
 import { auth } from "@app/modules/main/services/firebase";
 import { useMainProvider } from "@app/modules/main/states/mainProvider";
+import { signOut } from "firebase/auth";
 
 // Hook compartido de sesión. Lee el estado de auth que MainProvider mantiene
 // suscrito a onAuthStateChanged. El rol admin viene del custom claim (no de un campo en DB).

@@ -1,16 +1,16 @@
-import { useEffect } from "react";
-import { Link } from "react-router";
-import { useCheckoutProvider } from "@app/modules/checkout/states/checkoutProvider";
 import { useCheckoutActions } from "@app/modules/checkout/hooks/useCheckoutActions";
+import CheckoutFormInterface from "@app/modules/checkout/interfaces/checkoutFormInterface";
+import CheckoutSummaryInterface from "@app/modules/checkout/interfaces/checkoutSummaryInterface";
+import PaymentMethodInterface from "@app/modules/checkout/interfaces/paymentMethodInterface";
+import ShippingOptionsInterface from "@app/modules/checkout/interfaces/shippingOptionsInterface";
+import { useCheckoutProvider } from "@app/modules/checkout/states/checkoutProvider";
 import { useCart } from "@app/modules/main/hooks/useCart";
 import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 import CheckoutStepperInterface from "@app/modules/main/interfaces/checkoutStepperInterface";
-import CheckoutFormInterface from "@app/modules/checkout/interfaces/checkoutFormInterface";
-import ShippingOptionsInterface from "@app/modules/checkout/interfaces/shippingOptionsInterface";
-import PaymentMethodInterface from "@app/modules/checkout/interfaces/paymentMethodInterface";
-import CheckoutSummaryInterface from "@app/modules/checkout/interfaces/checkoutSummaryInterface";
+import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import { useEffect } from "react";
+import { Link } from "react-router";
 
 export default function CheckoutModule() {
   const { getCheckoutState } = useCheckoutProvider();

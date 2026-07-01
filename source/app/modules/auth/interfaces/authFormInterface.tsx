@@ -1,8 +1,8 @@
-import { Link } from "react-router";
 import type { AuthFormType, AuthModeType } from "@app/modules/auth/entities/entities";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 import FieldInterface from "@app/modules/main/interfaces/fieldInterface";
 import { InputInterface } from "@app/modules/main/interfaces/inputInterface";
+import { Link } from "react-router";
 
 type Props = {
   mode: AuthModeType;

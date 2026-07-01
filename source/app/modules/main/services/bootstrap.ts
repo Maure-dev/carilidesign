@@ -1,6 +1,6 @@
 import type { ProductType, SiteContentMapType } from "@app/modules/main/entities/entities";
-import { collection, getDocs } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
+import { collection, getDocs } from "firebase/firestore";
 
 export type SiteBootstrapType = {
   content: SiteContentMapType;

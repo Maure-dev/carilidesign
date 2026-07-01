@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import { getMapSrc } from "@app/modules/contact/helpers/mapSrc";
+import { describe, expect, it } from "vitest";
 
 describe("getMapSrc", () => {
   it("devuelve null si está vacío", () => {

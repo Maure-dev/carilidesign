@@ -1,5 +1,5 @@
-import { describe, it, expect } from "vitest";
 import { buildTimeline, getStatusLabel } from "@app/modules/account/helpers/orderStatus";
+import { describe, expect, it } from "vitest";
 
 describe("orderStatus", () => {
   it("traduce los estados a español", () => {

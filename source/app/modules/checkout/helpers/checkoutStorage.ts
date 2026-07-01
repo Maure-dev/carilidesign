@@ -1,5 +1,5 @@
-import type { CheckoutDataType } from "@app/modules/checkout/entities/entities";
 import { CHECKOUT_STORAGE_KEY } from "@app/modules/checkout/constants/constants";
+import type { CheckoutDataType } from "@app/modules/checkout/entities/entities";
 
 // Sólo se persiste lo que el usuario cargó (datos de envío + método + envío elegido).
 export type PersistedCheckoutType = Pick<CheckoutDataType, "form" | "method" | "shippingMethodId">;

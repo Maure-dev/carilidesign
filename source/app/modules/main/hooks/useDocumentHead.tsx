@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
+import { useEffect } from "react";
 
 type DocumentMeta = {
   title: string;

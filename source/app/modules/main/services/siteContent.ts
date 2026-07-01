@@ -1,5 +1,5 @@
-import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db, isFirebaseConfigured } from "@app/modules/main/services/firebase";
+import { doc, getDoc, setDoc } from "firebase/firestore";
 
 // Lee un documento de contenido desde Firestore (siteContent/{slug}). Sin fallback de código:
 // la data vive sólo en Firestore. Lo usa el Admin para editar; devuelve {} si el doc no existe.

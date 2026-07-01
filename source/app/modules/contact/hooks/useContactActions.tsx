@@ -1,9 +1,9 @@
 import type { ContactFormType, ContactInfoType } from "@app/modules/contact/entities/entities";
+import { validateContactForm } from "@app/modules/contact/helpers/validateContactForm";
+import { saveContactMessage, sendContactEmail } from "@app/modules/contact/services/services";
 import { useContactProvider } from "@app/modules/contact/states/contactProvider";
 import { useNotification } from "@app/modules/main/hooks/useNotification";
 import { useSiteContent } from "@app/modules/main/hooks/useSiteContent";
-import { saveContactMessage, sendContactEmail } from "@app/modules/contact/services/services";
-import { validateContactForm } from "@app/modules/contact/helpers/validateContactForm";
 
 export const useContactActions = () => {
   const { getContactState, setContactState } = useContactProvider();

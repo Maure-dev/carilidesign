@@ -1,5 +1,5 @@
-import type { CartItemType } from "@app/modules/main/entities/entities";
 import { CART_STORAGE_KEY } from "@app/modules/main/constants/constants";
+import type { CartItemType } from "@app/modules/main/entities/entities";
 
 // Funciones puras de (de)serialización del carrito a localStorage. Toleran JSON inválido.
 export function loadCartItems(): CartItemType[] {

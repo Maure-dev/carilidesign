@@ -1,7 +1,7 @@
-import { useEffect } from "react";
-import { CheckCircle2, AlertCircle } from "lucide-react";
-import { useMainProvider } from "@app/modules/main/states/mainProvider";
 import { useMountTransition } from "@app/modules/main/hooks/useMountTransition";
+import { useMainProvider } from "@app/modules/main/states/mainProvider";
+import { AlertCircle, CheckCircle2 } from "lucide-react";
+import { useEffect } from "react";
 import IconInterface from "./iconInterface";
 
 const AUTO_CLOSE_MS = 4000;

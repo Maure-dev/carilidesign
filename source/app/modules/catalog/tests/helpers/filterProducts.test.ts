@@ -1,6 +1,6 @@
-import { describe, it, expect } from "vitest";
 import { availableShapes, filterAndSort } from "@app/modules/catalog/helpers/filterProducts";
 import type { ProductType } from "@app/modules/main/entities/entities";
+import { describe, expect, it } from "vitest";
 
 function p(id: string, name: string, priceArs: number, shape: string): ProductType {
   return {

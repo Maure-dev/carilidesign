@@ -1,4 +1,4 @@
-import { type ReactElement, cloneElement, useId } from "react";
+import { cloneElement, type ReactElement, useId } from "react";
 
 type Props = {
   label: string;

@@ -1,10 +1,5 @@
-import type { AdminContentDocType, ProductDraftType } from "@app/modules/admin/entities/entities";
-import type { OrderStatusType, ProductType } from "@app/modules/main/entities/entities";
-import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
-import { useNotification } from "@app/modules/main/hooks/useNotification";
-import { auth } from "@app/modules/main/services/firebase";
-import { uploadImage } from "@app/modules/main/services/imageUpload";
 import { EMPTY_DRAFT } from "@app/modules/admin/constants/constants";
+import type { AdminContentDocType, ProductDraftType } from "@app/modules/admin/entities/entities";
 import { validateProduct } from "@app/modules/admin/helpers/validateProduct";
 import {
   confirmPayment,
@@ -20,6 +15,11 @@ import {
   setUserRole,
   transitionOrder
 } from "@app/modules/admin/services/services";
+import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
+import type { OrderStatusType, ProductType } from "@app/modules/main/entities/entities";
+import { useNotification } from "@app/modules/main/hooks/useNotification";
+import { auth } from "@app/modules/main/services/firebase";
+import { uploadImage } from "@app/modules/main/services/imageUpload";
 
 async function getIdToken(): Promise<string> {
   if (auth?.currentUser) {

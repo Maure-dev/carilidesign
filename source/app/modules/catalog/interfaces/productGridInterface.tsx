@@ -1,6 +1,6 @@
 import type { ProductType } from "@app/modules/main/entities/entities";
-import ProductCardInterface from "@app/modules/main/interfaces/productCardInterface";
 import EmptyBoxInterface from "@app/modules/main/interfaces/emptyBoxInterface";
+import ProductCardInterface from "@app/modules/main/interfaces/productCardInterface";
 
 type Props = {
   products: ProductType[];
