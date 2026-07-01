@@ -30,8 +30,10 @@ export default function PaymentMethodInterface({ method, onSelect }: Props) {
       {METHODS.map((option) => (
         <label
           key={option.value}
-          className={`flex cursor-pointer gap-3 rounded-card border p-4 transition-colors ${
-            method === option.value ? "border-clay bg-sand/40" : "border-sand hover:border-clay"
+          className={`flex cursor-pointer gap-3 rounded-card border p-4 transition-[color,background-color,border-color,box-shadow] hover:shadow-card ${
+            method === option.value
+              ? "border-clay bg-sand/40 shadow-card"
+              : "border-sand hover:border-clay"
           }`}
         >
           <input

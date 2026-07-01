@@ -7,8 +7,6 @@ import type {
   ProductType
 } from "@app/modules/main/entities/entities";
 
-export type AdminTabType = "products" | "orders" | "content" | "messages";
-
 export type ProductDraftType = {
   id?: string;
   name: string;
@@ -31,10 +29,19 @@ export type AdminOrderType = {
   paymentMethod: PaymentMethodType;
   paymentStatus: PaymentStatusType;
   orderStatus: OrderStatusType;
+  createdAt?: string;
 };
 
 // Tipo de editor según la sección de contenido.
-export type AdminContentKindType = "home" | "page" | "faq" | "contact" | "payment" | "shipping";
+export type AdminContentKindType =
+  | "home"
+  | "page"
+  | "faq"
+  | "contact"
+  | "payment"
+  | "shipping"
+  | "brand"
+  | "social";
 
 export type AdminContentSectionType = {
   slug: string;
@@ -79,6 +86,12 @@ export type AdminContentDocType = {
   cashNote?: string;
   // envío (correos con sus precios)
   options?: AdminShippingOptionType[];
+  // marca / general
+  tagline?: string;
+  // redes sociales
+  facebook?: string;
+  tiktok?: string;
+  youtube?: string;
 };
 
 export type AdminMessageType = {
@@ -90,7 +103,6 @@ export type AdminMessageType = {
 };
 
 export type AdminDataType = {
-  tab: AdminTabType;
   loading: boolean;
   products: ProductType[];
   draft: ProductDraftType | null;

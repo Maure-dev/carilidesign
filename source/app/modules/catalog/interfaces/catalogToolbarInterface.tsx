@@ -1,7 +1,9 @@
+import { Search } from "lucide-react";
 import type { CatalogSortType } from "@app/modules/catalog/entities/entities";
 import { useCatalogProvider } from "@app/modules/catalog/states/catalogProvider";
 import { useCatalogActions } from "@app/modules/catalog/hooks/useCatalogActions";
 import { availableShapes } from "@app/modules/catalog/helpers/filterProducts";
+import IconInterface from "@app/modules/main/interfaces/iconInterface";
 
 function chipClass(active: boolean): string {
   return `rounded-full border px-3 py-1 text-sm capitalize transition-colors ${
@@ -20,14 +22,19 @@ export default function CatalogToolbarInterface() {
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-        <input
-          type="text"
-          value={filters.search}
-          onChange={(e) => handleSearch(e.target.value)}
-          placeholder="Buscar bachas..."
-          aria-label="Buscar bachas"
-          className="w-full rounded-buttons border border-sand bg-surface px-4 py-2 outline-none focus:border-clay sm:max-w-xs"
-        />
+        <div className="relative w-full sm:max-w-xs">
+          <span className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-ink-soft">
+            <IconInterface icon={Search} size="sm" />
+          </span>
+          <input
+            type="text"
+            value={filters.search}
+            onChange={(e) => handleSearch(e.target.value)}
+            placeholder="Buscar bachas..."
+            aria-label="Buscar bachas"
+            className="w-full rounded-buttons border border-sand bg-surface py-2 pl-10 pr-4 outline-none transition-colors focus:border-clay"
+          />
+        </div>
         <select
           value={sort}
           onChange={(e) => handleSetSort(e.target.value as CatalogSortType)}

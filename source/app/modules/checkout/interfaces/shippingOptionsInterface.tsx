@@ -14,8 +14,10 @@ export default function ShippingOptionsInterface({ options, selectedId, onSelect
       {options.map((option) => (
         <label
           key={option.id}
-          className={`flex cursor-pointer items-center justify-between gap-3 rounded-card border p-4 transition-colors ${
-            selectedId === option.id ? "border-clay bg-sand/40" : "border-sand hover:border-clay"
+          className={`flex cursor-pointer items-center justify-between gap-3 rounded-card border p-4 transition-[color,background-color,border-color,box-shadow] hover:shadow-card ${
+            selectedId === option.id
+              ? "border-clay bg-sand/40 shadow-card"
+              : "border-sand hover:border-clay"
           }`}
         >
           <span className="flex items-center gap-3">

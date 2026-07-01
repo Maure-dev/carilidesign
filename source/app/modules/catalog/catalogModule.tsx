@@ -3,7 +3,7 @@ import { useCatalogProvider } from "@app/modules/catalog/states/catalogProvider"
 import { useCatalogActions } from "@app/modules/catalog/hooks/useCatalogActions";
 import { filterAndSort } from "@app/modules/catalog/helpers/filterProducts";
 import { useDocumentHead } from "@app/modules/main/hooks/useDocumentHead";
-import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
+import { ProductCardSkeletonInterface } from "@app/modules/main/interfaces/skeletonInterface";
 import CatalogToolbarInterface from "@app/modules/catalog/interfaces/catalogToolbarInterface";
 import ProductGridInterface from "@app/modules/catalog/interfaces/productGridInterface";
 
@@ -30,7 +30,15 @@ export default function CatalogModule() {
         <p className="text-ink-soft">Cada bacha es una pieza única, hecha y esmaltada a mano.</p>
       </header>
       <CatalogToolbarInterface />
-      {loading ? <LoadingInterface /> : <ProductGridInterface products={products} />}
+      {loading ? (
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {[0, 1, 2, 3, 4, 5].map((i) => (
+            <ProductCardSkeletonInterface key={i} />
+          ))}
+        </div>
+      ) : (
+        <ProductGridInterface products={products} />
+      )}
     </section>
   );
 }

@@ -1,6 +1,5 @@
 import type { ProductType } from "@app/modules/main/entities/entities";
 import PriceInterface from "@app/modules/main/interfaces/priceInterface";
-import BadgeInterface from "@app/modules/main/interfaces/badgeInterface";
 
 type Props = {
   product: ProductType;
@@ -10,7 +9,6 @@ type Props = {
 export default function ProductInfoInterface({ product, price }: Props) {
   return (
     <div className="flex flex-col gap-3">
-      <BadgeInterface tone="sand">Hecho a mano · Pieza única</BadgeInterface>
       <h1 className="font-display text-4xl text-ink">{product.name}</h1>
       <PriceInterface amount={price} className="font-display text-2xl text-clay-deep" />
       <p className="text-ink-soft">{product.description}</p>

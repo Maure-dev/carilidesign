@@ -1,3 +1,6 @@
+import { Check } from "lucide-react";
+import IconInterface from "@app/modules/main/interfaces/iconInterface";
+
 type Props = {
   current: number; // 0 = Carrito, 1 = Envío, 2 = Pago
   onNavigate?: (index: number) => void;
@@ -25,7 +28,7 @@ export default function CheckoutStepperInterface({ current, onNavigate }: Props)
               aria-current={active ? "step" : undefined}
             >
               <span
-                className={`flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold ${
+                className={`flex h-7 w-7 items-center justify-center rounded-full text-sm font-semibold transition-colors ${
                   active
                     ? "bg-clay text-white"
                     : done
@@ -33,7 +36,7 @@ export default function CheckoutStepperInterface({ current, onNavigate }: Props)
                       : "bg-sand text-ink-soft"
                 }`}
               >
-                {index + 1}
+                {done ? <IconInterface icon={Check} size="sm" /> : index + 1}
               </span>
               <span
                 className={`text-sm ${

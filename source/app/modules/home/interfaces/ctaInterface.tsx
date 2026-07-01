@@ -1,4 +1,4 @@
-import { Link } from "react-router";
+import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 
 export default function CtaInterface() {
   return (
@@ -8,12 +8,9 @@ export default function CtaInterface() {
         <p className="max-w-prose text-white/90">
           Personalizá medida, esmalte y grabado. Te acompañamos en todo el proceso.
         </p>
-        <Link
-          to="/catalogo"
-          className="rounded-buttons bg-white px-6 py-3 text-sm font-medium text-clay-deep transition-colors hover:bg-canvas"
-        >
+        <ButtonInterface to="/catalogo" variant="onDark" size="lg">
           Explorar la colección
-        </Link>
+        </ButtonInterface>
       </div>
     </section>
   );

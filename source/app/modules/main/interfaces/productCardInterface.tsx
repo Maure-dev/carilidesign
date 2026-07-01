@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import type { ProductType } from "@app/modules/main/entities/entities";
 import LazyImageInterface from "./lazyImageInterface";
 import PriceInterface from "./priceInterface";
-import BadgeInterface from "./badgeInterface";
 
 type Props = {
   product: ProductType;
@@ -15,7 +14,7 @@ export default function ProductCardInterface({ product }: Props) {
   return (
     <Link
       to={`/producto/${product.slug}`}
-      className="group flex flex-col overflow-hidden rounded-card border border-sand bg-surface transition-shadow hover:shadow-soft"
+      className="group flex flex-col overflow-hidden rounded-card border border-sand bg-surface shadow-card transition-[transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:shadow-soft"
     >
       <div className="aspect-[4/5] overflow-hidden bg-sand">
         {image && (
@@ -29,7 +28,6 @@ export default function ProductCardInterface({ product }: Props) {
       <div className="flex flex-col gap-2 p-4">
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-display text-lg text-ink">{product.name}</h3>
-          <BadgeInterface tone="sand">Hecho a mano</BadgeInterface>
         </div>
         <p className="line-clamp-2 text-sm text-ink-soft">
           {product.shortDescription ?? product.description}

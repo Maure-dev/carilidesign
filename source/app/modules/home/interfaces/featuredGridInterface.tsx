@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import type { ProductType } from "@app/modules/main/entities/entities";
 import ProductCardInterface from "@app/modules/main/interfaces/productCardInterface";
-import LoadingInterface from "@app/modules/main/interfaces/loadingInterface";
+import { ProductCardSkeletonInterface } from "@app/modules/main/interfaces/skeletonInterface";
 
 type Props = {
   products: ProductType[];
@@ -17,15 +17,11 @@ export default function FeaturedGridInterface({ products, loading }: Props) {
           Ver toda la colección →
         </Link>
       </div>
-      {loading ? (
-        <LoadingInterface />
-      ) : (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {products.map((product) => (
-            <ProductCardInterface key={product.id} product={product} />
-          ))}
-        </div>
-      )}
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {loading
+          ? [0, 1, 2].map((i) => <ProductCardSkeletonInterface key={i} />)
+          : products.map((product) => <ProductCardInterface key={product.id} product={product} />)}
+      </div>
     </section>
   );
 }

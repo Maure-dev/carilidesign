@@ -1,6 +1,6 @@
-import { Link } from "react-router";
 import type { HomeContentType } from "@app/modules/home/entities/entities";
 import LazyImageInterface from "@app/modules/main/interfaces/lazyImageInterface";
+import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 
 type Props = {
   content: HomeContentType;
@@ -15,18 +15,12 @@ export default function HeroInterface({ content }: Props) {
         </h1>
         <p className="max-w-prose text-lg text-ink-soft">{content.heroSubtitle}</p>
         <div className="mt-2 flex flex-wrap gap-3">
-          <Link
-            to="/catalogo"
-            className="rounded-buttons bg-clay px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-clay-deep"
-          >
+          <ButtonInterface to="/catalogo" size="lg">
             Ver catálogo
-          </Link>
-          <Link
-            to="/materiales-y-proceso"
-            className="rounded-buttons border border-clay px-6 py-3 text-sm font-medium text-clay-deep transition-colors hover:bg-sand"
-          >
+          </ButtonInterface>
+          <ButtonInterface to="/materiales-y-proceso" variant="secondary" size="lg">
             Conocer el proceso
-          </Link>
+          </ButtonInterface>
         </div>
       </div>
       {content.heroImageUrl && (

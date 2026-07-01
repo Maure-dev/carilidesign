@@ -1,6 +1,8 @@
 import { Link } from "react-router";
 import type { AuthFormType, AuthModeType } from "@app/modules/auth/entities/entities";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
+import FieldInterface from "@app/modules/main/interfaces/fieldInterface";
+import { InputInterface } from "@app/modules/main/interfaces/inputInterface";
 
 type Props = {
   mode: AuthModeType;
@@ -37,62 +39,58 @@ export default function AuthFormInterface({
         e.preventDefault();
         onSubmit();
       }}
-      className="flex w-full max-w-sm flex-col gap-4 rounded-card border border-sand bg-surface p-6"
+      className="flex w-full max-w-sm flex-col gap-4 rounded-card border border-sand bg-surface p-6 shadow-card"
     >
       <h1 className="font-display text-3xl text-ink">{TITLES[mode]}</h1>
 
       {mode === "register" && (
-        <label className="flex flex-col gap-1">
-          <span className="text-sm text-ink">Nombre</span>
-          <input
+        <FieldInterface label="Nombre">
+          <InputInterface
             type="text"
+            autoComplete="name"
             value={form.displayName}
             onChange={(e) => onChange("displayName", e.target.value)}
-            className="rounded-buttons border border-sand bg-canvas px-3 py-2 text-sm outline-none focus:border-clay"
           />
-        </label>
+        </FieldInterface>
       )}
 
-      <label className="flex flex-col gap-1">
-        <span className="text-sm text-ink">Email</span>
-        <input
+      <FieldInterface label="Email">
+        <InputInterface
           type="email"
           required
           autoComplete="email"
           value={form.email}
           onChange={(e) => onChange("email", e.target.value)}
-          className="rounded-buttons border border-sand bg-canvas px-3 py-2 text-sm outline-none focus:border-clay"
         />
-      </label>
+      </FieldInterface>
 
       {mode !== "recover" && (
-        <label className="flex flex-col gap-1">
-          <span className="text-sm text-ink">Contraseña</span>
-          <input
+        <FieldInterface label="Contraseña">
+          <InputInterface
             type="password"
             required
             minLength={mode === "register" ? 6 : undefined}
             autoComplete={mode === "register" ? "new-password" : "current-password"}
             value={form.password}
             onChange={(e) => onChange("password", e.target.value)}
-            className="rounded-buttons border border-sand bg-canvas px-3 py-2 text-sm outline-none focus:border-clay"
           />
-        </label>
+        </FieldInterface>
       )}
 
-      <ButtonInterface type="submit" block disabled={submitting}>
+      <ButtonInterface type="submit" block loading={submitting}>
         {submitting ? "Procesando..." : SUBMIT_LABELS[mode]}
       </ButtonInterface>
 
       {mode !== "recover" && (
-        <button
+        <ButtonInterface
           type="button"
+          variant="secondary"
+          block
           onClick={onGoogle}
           disabled={submitting}
-          className="rounded-buttons border border-sand px-4 py-2.5 text-sm font-medium text-ink hover:bg-sand"
         >
           Continuar con Google
-        </button>
+        </ButtonInterface>
       )}
 
       <div className="flex flex-col gap-1 text-sm text-ink-soft">

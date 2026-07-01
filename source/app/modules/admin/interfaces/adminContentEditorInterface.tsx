@@ -1,4 +1,5 @@
 import { type ChangeEvent, useState } from "react";
+import { Upload } from "lucide-react";
 import type {
   AdminContentDocType,
   AdminContentKindType,
@@ -8,6 +9,8 @@ import type {
   AdminValuePropType
 } from "@app/modules/admin/entities/entities";
 import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
+import IconInterface from "@app/modules/main/interfaces/iconInterface";
+import { controlClass } from "@app/modules/main/interfaces/inputInterface";
 
 type UploadImageType = (file: File) => Promise<string>;
 
@@ -22,8 +25,8 @@ type Props = {
   onSave: () => void;
 };
 
-const inputClass =
-  "rounded-buttons border border-sand bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-clay";
+// Reusa el estilo de control unificado del sistema de diseño.
+const inputClass = controlClass;
 
 function newId(): string {
   if (typeof crypto !== "undefined" && crypto.randomUUID) {
@@ -114,21 +117,7 @@ function ImageField({
           uploading ? "pointer-events-none opacity-70" : ""
         }`}
       >
-        <svg
-          viewBox="0 0 24 24"
-          width="1.1rem"
-          height="1.1rem"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="1.8"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          aria-hidden="true"
-        >
-          <path d="M12 16 V4" />
-          <path d="M7 9 L12 4 L17 9" />
-          <path d="M5 20 H19" />
-        </svg>
+        <IconInterface icon={Upload} size="sm" />
         {uploading ? "Subiendo imagen…" : "Subir imagen"}
         <input
           type="file"
@@ -444,6 +433,52 @@ function ShippingForm({
   );
 }
 
+function BrandForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props["onChange"] }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <Field
+        label="Eslogan / Tagline"
+        value={doc.tagline ?? ""}
+        multiline
+        placeholder="Bachas de baño artesanales, hechas y esmaltadas a mano en Argentina."
+        onChange={(v) => onChange({ tagline: v })}
+      />
+    </div>
+  );
+}
+
+function SocialForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props["onChange"] }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <Field
+        label="Instagram (usuario)"
+        value={doc.instagram ?? ""}
+        onChange={(v) => onChange({ instagram: v })}
+      />
+      <Field
+        label="Facebook (URL)"
+        value={doc.facebook ?? ""}
+        onChange={(v) => onChange({ facebook: v })}
+      />
+      <Field
+        label="TikTok (URL)"
+        value={doc.tiktok ?? ""}
+        onChange={(v) => onChange({ tiktok: v })}
+      />
+      <Field
+        label="YouTube (URL)"
+        value={doc.youtube ?? ""}
+        onChange={(v) => onChange({ youtube: v })}
+      />
+      <Field
+        label="WhatsApp (número con código país)"
+        value={doc.whatsapp ?? ""}
+        onChange={(v) => onChange({ whatsapp: v })}
+      />
+    </div>
+  );
+}
+
 function renderForm(
   kind: AdminContentKindType,
   doc: AdminContentDocType,
@@ -464,6 +499,12 @@ function renderForm(
   }
   if (kind === "shipping") {
     return <ShippingForm doc={doc} onChange={onChange} />;
+  }
+  if (kind === "brand") {
+    return <BrandForm doc={doc} onChange={onChange} />;
+  }
+  if (kind === "social") {
+    return <SocialForm doc={doc} onChange={onChange} />;
   }
   return <PageForm doc={doc} onChange={onChange} onUpload={onUpload} />;
 }

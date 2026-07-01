@@ -6,7 +6,9 @@ export const ROUTE_TO_SLUG: Record<string, string> = {
   "/materiales-y-proceso": "materials",
   "/como-instalar": "install",
   "/como-lavar": "care",
-  "/preguntas-frecuentes": "faq"
+  "/preguntas-frecuentes": "faq",
+  "/terminos": "terms",
+  "/privacidad": "privacy"
 };
 
 export const INITIAL_STATE = {

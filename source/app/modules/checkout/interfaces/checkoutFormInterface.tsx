@@ -1,4 +1,6 @@
 import type { ShippingFormType } from "@app/modules/checkout/entities/entities";
+import FieldInterface from "@app/modules/main/interfaces/fieldInterface";
+import { InputInterface, TextareaInterface } from "@app/modules/main/interfaces/inputInterface";
 
 type Props = {
   form: ShippingFormType;
@@ -20,29 +22,24 @@ export default function CheckoutFormInterface({ form, errors, onChange }: Props)
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       {FIELDS.map((field) => (
-        <label
-          key={field.name}
-          className={`flex flex-col gap-1 ${field.full ? "sm:col-span-2" : ""}`}
-        >
-          <span className="text-sm text-ink">{field.label}</span>
-          <input
-            type="text"
-            value={form[field.name]}
-            onChange={(e) => onChange(field.name, e.target.value)}
-            className="rounded-buttons border border-sand bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-clay"
-          />
-          {errors[field.name] && <span className="text-xs text-error">{errors[field.name]}</span>}
-        </label>
+        <div key={field.name} className={field.full ? "sm:col-span-2" : ""}>
+          <FieldInterface label={field.label} error={errors[field.name]}>
+            <InputInterface
+              value={form[field.name]}
+              onChange={(e) => onChange(field.name, e.target.value)}
+            />
+          </FieldInterface>
+        </div>
       ))}
-      <label className="flex flex-col gap-1 sm:col-span-2">
-        <span className="text-sm text-ink">Notas (opcional)</span>
-        <textarea
-          value={form.notes}
-          onChange={(e) => onChange("notes", e.target.value)}
-          rows={3}
-          className="rounded-buttons border border-sand bg-surface px-3 py-2 text-sm text-ink outline-none focus:border-clay"
-        />
-      </label>
+      <div className="sm:col-span-2">
+        <FieldInterface label="Notas (opcional)">
+          <TextareaInterface
+            rows={3}
+            value={form.notes}
+            onChange={(e) => onChange("notes", e.target.value)}
+          />
+        </FieldInterface>
+      </div>
     </div>
   );
 }

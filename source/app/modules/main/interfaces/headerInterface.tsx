@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router";
+import { Menu, X } from "lucide-react";
 import { useSession } from "@app/modules/main/hooks/useSession";
+import { useMountTransition } from "@app/modules/main/hooks/useMountTransition";
 import LogoInterface from "./logoInterface";
 import CartBadgeInterface from "./cartBadgeInterface";
+import IconInterface from "./iconInterface";
+import IconButtonInterface from "./iconButtonInterface";
 
 // Nav compacto para desktop.
 const NAV = [
+  { to: "/", label: "Inicio" },
   { to: "/catalogo", label: "Catálogo" },
   { to: "/nosotros", label: "Nosotros" },
   { to: "/materiales-y-proceso", label: "Proceso" },
@@ -15,6 +20,7 @@ const NAV = [
 
 // Nav completo para el menú móvil (todas las secciones).
 const MOBILE_NAV = [
+  { to: "/", label: "Inicio" },
   { to: "/catalogo", label: "Catálogo" },
   { to: "/nosotros", label: "Nosotros" },
   { to: "/materiales-y-proceso", label: "Materiales y proceso" },
@@ -29,6 +35,7 @@ export default function HeaderInterface() {
   const { isAuthenticated, isAdmin } = useSession();
   const showAdmin = isAdmin;
   const [menuOpen, setMenuOpen] = useState(false);
+  const { mounted: menuMounted, state: menuState } = useMountTransition(menuOpen, 200);
 
   const closeMenu = () => setMenuOpen(false);
 
@@ -53,7 +60,7 @@ export default function HeaderInterface() {
 
   const accountTo = isAuthenticated ? "/mi-cuenta" : "/ingresar";
   const accountLabel = isAuthenticated ? "Mi cuenta" : "Ingresar";
-  const adminLabel = "Admin";
+  const adminLabel = "Administrar sitio";
 
   return (
     <>
@@ -84,55 +91,33 @@ export default function HeaderInterface() {
               {accountLabel}
             </Link>
             <CartBadgeInterface />
-            <button
-              type="button"
+            <IconButtonInterface
+              label="Abrir menú"
               onClick={() => setMenuOpen(true)}
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              aria-label="Abrir menú"
               className="text-ink lg:hidden"
             >
-              <svg
-                viewBox="0 0 24 24"
-                width="1.6rem"
-                height="1.6rem"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <path d="M4 7 H20" />
-                <path d="M4 12 H20" />
-                <path d="M4 17 H20" />
-              </svg>
-            </button>
+              <IconInterface icon={Menu} size="lg" />
+            </IconButtonInterface>
           </div>
         </div>
       </header>
 
       {/* Menú móvil a pantalla completa (fuera del header para que `fixed` use el viewport) */}
-      {menuOpen && (
-        <div id="mobile-menu" className="fixed inset-0 z-40 flex flex-col bg-canvas lg:hidden">
+      {menuMounted && (
+        <div
+          id="mobile-menu"
+          data-state={menuState}
+          className="fixed inset-0 z-40 flex flex-col bg-canvas transition-transform duration-200 ease-out data-[state=closed]:translate-x-full data-[state=open]:translate-x-0 lg:hidden"
+        >
           <div className="flex items-center justify-between border-b border-sand px-4 py-3">
             <Link to="/" aria-label="Carili Design — inicio" onClick={closeMenu}>
               <LogoInterface />
             </Link>
-            <button type="button" onClick={closeMenu} aria-label="Cerrar menú" className="text-ink">
-              <svg
-                viewBox="0 0 24 24"
-                width="1.7rem"
-                height="1.7rem"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                aria-hidden="true"
-              >
-                <path d="M6 6 L18 18" />
-                <path d="M18 6 L6 18" />
-              </svg>
-            </button>
+            <IconButtonInterface label="Cerrar menú" onClick={closeMenu} className="text-ink">
+              <IconInterface icon={X} size="lg" />
+            </IconButtonInterface>
           </div>
 
           <nav

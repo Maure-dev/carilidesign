@@ -1,32 +1,35 @@
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router";
+import { ShoppingCart } from "lucide-react";
 import { useCart } from "@app/modules/main/hooks/useCart";
+import IconInterface from "./iconInterface";
 
-// Ícono de carrito con contador. Lee el estado compartido del carrito (MainData).
+// Ícono de carrito con contador. Pulsa cuando aumenta la cantidad (feedback de "agregado").
 export default function CartBadgeInterface() {
   const { getCount } = useCart();
   const count = getCount();
+  const prev = useRef(count);
+  const [pulseKey, setPulseKey] = useState(0);
+
+  useEffect(() => {
+    if (count > prev.current) {
+      setPulseKey((k) => k + 1);
+    }
+    prev.current = count;
+  }, [count]);
 
   return (
     <Link
       to="/carrito"
       aria-label={`Carrito, ${count} ${count === 1 ? "ítem" : "ítems"}`}
-      className="relative inline-flex items-center text-ink hover:text-clay-deep"
+      className="relative inline-flex items-center text-ink transition-colors hover:text-clay-deep"
     >
-      <svg
-        viewBox="0 0 24 24"
-        width="1.5rem"
-        height="1.5rem"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        aria-hidden="true"
+      <span
+        key={pulseKey}
+        className={pulseKey > 0 ? "inline-flex animate-pulse-once" : "inline-flex"}
       >
-        <circle cx="9" cy="20" r="1.4" />
-        <circle cx="18" cy="20" r="1.4" />
-        <path d="M2.5 3.5 H5 L7 15 H19 L21 7 H6" />
-      </svg>
+        <IconInterface icon={ShoppingCart} size="lg" />
+      </span>
       {count > 0 && (
         <span className="absolute -right-2 -top-2 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-clay px-1 text-xs font-semibold text-white">
           {count}

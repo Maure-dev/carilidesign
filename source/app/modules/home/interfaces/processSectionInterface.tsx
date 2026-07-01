@@ -1,6 +1,6 @@
-import { Link } from "react-router";
 import type { HomeContentType } from "@app/modules/home/entities/entities";
 import LazyImageInterface from "@app/modules/main/interfaces/lazyImageInterface";
+import ButtonInterface from "@app/modules/main/interfaces/buttonInterface";
 
 type Props = {
   content: HomeContentType;
@@ -22,12 +22,9 @@ export default function ProcessSectionInterface({ content }: Props) {
         <div className="flex flex-col gap-4">
           <h2 className="font-display text-3xl text-ink">{content.processTitle}</h2>
           <p className="max-w-prose text-ink-soft">{content.processText}</p>
-          <Link
-            to="/nosotros"
-            className="w-fit rounded-buttons border border-clay px-5 py-2.5 text-sm font-medium text-clay-deep hover:bg-sand"
-          >
+          <ButtonInterface to="/nosotros" variant="secondary" className="w-fit">
             Sobre nosotros
-          </Link>
+          </ButtonInterface>
         </div>
       </div>
     </section>

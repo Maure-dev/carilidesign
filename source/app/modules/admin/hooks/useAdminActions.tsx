@@ -1,8 +1,4 @@
-import type {
-  AdminContentDocType,
-  AdminTabType,
-  ProductDraftType
-} from "@app/modules/admin/entities/entities";
+import type { AdminContentDocType, ProductDraftType } from "@app/modules/admin/entities/entities";
 import type { OrderStatusType, ProductType } from "@app/modules/main/entities/entities";
 import { useAdminProvider } from "@app/modules/admin/states/adminProvider";
 import { useNotification } from "@app/modules/main/hooks/useNotification";
@@ -49,10 +45,6 @@ function productToDraft(product: ProductType): ProductDraftType {
 export const useAdminActions = () => {
   const { getAdminState, setAdminState } = useAdminProvider();
   const { onNotification } = useNotification();
-
-  const handleSetTab = (tab: AdminTabType): void => {
-    setAdminState((s) => ({ ...s, tab: tab }));
-  };
 
   const handleLoadProducts = async (): Promise<void> => {
     setAdminState((s) => ({ ...s, loading: true }));
@@ -258,7 +250,6 @@ export const useAdminActions = () => {
   };
 
   return {
-    handleSetTab,
     handleLoadProducts,
     handleNewDraft,
     handleEditDraft,

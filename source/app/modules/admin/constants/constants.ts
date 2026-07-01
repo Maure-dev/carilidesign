@@ -21,19 +21,22 @@ export const EMPTY_DRAFT: ProductDraftType = {
 // que cada módulo del front ya lee (con fallback a sus valores por defecto).
 export const CONTENT_SECTIONS: AdminContentSectionType[] = [
   { slug: "home", label: "Inicio", kind: "home" },
+  { slug: "settings", label: "Marca / General", kind: "brand" },
   { slug: "about", label: "Nosotros", kind: "page" },
   { slug: "materials", label: "Materiales y proceso", kind: "page" },
   { slug: "install", label: "¿Cómo la instalo?", kind: "page" },
   { slug: "care", label: "¿Cómo la lavo?", kind: "page" },
   { slug: "faq", label: "Preguntas frecuentes", kind: "faq" },
   { slug: "contact", label: "Contacto", kind: "contact" },
+  { slug: "social", label: "Redes sociales", kind: "social" },
   { slug: "payment", label: "Datos de pago", kind: "payment" },
-  { slug: "shipping", label: "Envío y costos", kind: "shipping" }
+  { slug: "shipping", label: "Envío y costos", kind: "shipping" },
+  { slug: "terms", label: "Términos y condiciones", kind: "page" },
+  { slug: "privacy", label: "Política de privacidad", kind: "page" }
 ];
 
 export const INITIAL_STATE = {
   ADMIN_PAGE: {
-    tab: "products",
     loading: false,
     products: [],
     draft: null,

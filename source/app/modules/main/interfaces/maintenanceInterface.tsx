@@ -1,4 +1,5 @@
 import LogoInterface from "./logoInterface";
+import ButtonInterface from "./buttonInterface";
 
 // Pantalla de mantenimiento: se muestra cuando no se pudo traer la data desde Firestore.
 export default function MaintenanceInterface() {
@@ -12,13 +13,7 @@ export default function MaintenanceInterface() {
           unos minutos.
         </p>
       </div>
-      <button
-        type="button"
-        onClick={() => window.location.reload()}
-        className="rounded-buttons bg-clay px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-clay-deep"
-      >
-        Reintentar
-      </button>
+      <ButtonInterface onClick={() => window.location.reload()}>Reintentar</ButtonInterface>
     </div>
   );
 }

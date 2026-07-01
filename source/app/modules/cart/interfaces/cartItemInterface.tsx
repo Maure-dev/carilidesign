@@ -1,6 +1,9 @@
+import { Minus, Plus, Trash2 } from "lucide-react";
 import type { CartItemType } from "@app/modules/main/entities/entities";
 import LazyImageInterface from "@app/modules/main/interfaces/lazyImageInterface";
 import PriceInterface from "@app/modules/main/interfaces/priceInterface";
+import IconButtonInterface from "@app/modules/main/interfaces/iconButtonInterface";
+import IconInterface from "@app/modules/main/interfaces/iconInterface";
 
 type Props = {
   item: CartItemType;
@@ -21,13 +24,14 @@ export default function CartItemInterface({ item, onQuantity, onRemove }: Props)
       <div className="flex flex-1 flex-col gap-1">
         <div className="flex items-start justify-between gap-2">
           <h3 className="font-display text-lg text-ink">{item.name}</h3>
-          <button
-            type="button"
+          <IconButtonInterface
+            label="Quitar producto"
+            size="sm"
             onClick={() => onRemove(item.id)}
-            className="text-sm text-ink-soft hover:text-error"
+            className="hover:text-error"
           >
-            Quitar
-          </button>
+            <IconInterface icon={Trash2} size="sm" />
+          </IconButtonInterface>
         </div>
         {item.options &&
           Object.entries(item.options).map(([key, value]) => (
@@ -37,23 +41,21 @@ export default function CartItemInterface({ item, onQuantity, onRemove }: Props)
           ))}
         <div className="mt-2 flex items-center justify-between">
           <div className="flex items-center rounded-buttons border border-sand">
-            <button
-              type="button"
+            <IconButtonInterface
+              label="Restar cantidad"
+              size="sm"
               onClick={() => onQuantity(item.id, item.quantity - 1)}
-              aria-label="Restar cantidad"
-              className="px-2 py-1 text-ink-soft hover:text-ink"
             >
-              −
-            </button>
+              <IconInterface icon={Minus} size="sm" />
+            </IconButtonInterface>
             <span className="min-w-8 text-center text-sm">{item.quantity}</span>
-            <button
-              type="button"
+            <IconButtonInterface
+              label="Sumar cantidad"
+              size="sm"
               onClick={() => onQuantity(item.id, item.quantity + 1)}
-              aria-label="Sumar cantidad"
-              className="px-2 py-1 text-ink-soft hover:text-ink"
             >
-              +
-            </button>
+              <IconInterface icon={Plus} size="sm" />
+            </IconButtonInterface>
           </div>
           <PriceInterface
             amount={item.unitPrice * item.quantity}
