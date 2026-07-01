@@ -133,6 +133,34 @@ const CONTENT = {
       { id: "correo", name: "Correo Argentino", priceArs: 8000 },
       { id: "andreani", name: "Andreani (a domicilio)", priceArs: 12000 }
     ]
+  },
+  terms: {
+    slug: "terms",
+    title: "Términos y condiciones",
+    intro: "Condiciones de uso del sitio y de compra en Carili Design.",
+    body: [
+      "Estos términos regulan el uso del sitio y la compra de productos de Carili Design. Al realizar un pedido, aceptás estas condiciones.",
+      "Nuestros productos son piezas de cerámica hechas y esmaltadas a mano. Por su naturaleza artesanal pueden existir pequeñas variaciones de color, textura y medidas respecto de las fotos; no se consideran defectos.",
+      "Los precios están expresados en pesos argentinos (ARS) e incluyen impuestos cuando corresponde. Podemos actualizarlos sin previo aviso; el precio válido es el vigente al momento de confirmar el pedido.",
+      "Aceptamos los medios de pago indicados en el checkout (Mercado Pago, transferencia bancaria y efectivo a coordinar). El pedido se considera confirmado una vez acreditado el pago.",
+      "Los envíos se realizan a través de los correos y con los costos informados en el checkout. Los plazos son estimados y pueden variar según la zona y el transporte.",
+      "Al tratarse de productos artesanales y, en muchos casos, personalizados, los cambios y devoluciones se evalúan caso por caso. Si tu pedido llega dañado, escribinos dentro de las 48 horas de recibido adjuntando fotos para gestionar una solución.",
+      "Las imágenes, textos y la marca del sitio son propiedad de Carili Design y no pueden reproducirse sin autorización.",
+      "Ante cualquier duda podés escribirnos desde la sección Contacto."
+    ]
+  },
+  privacy: {
+    slug: "privacy",
+    title: "Política de privacidad",
+    intro: "Cómo tratamos y protegemos tus datos personales.",
+    body: [
+      "En Carili Design cuidamos tus datos personales. Esta política explica qué información recopilamos y cómo la usamos.",
+      "Recopilamos los datos que nos brindás al crear tu cuenta o realizar un pedido (nombre, email, teléfono y dirección de envío) para procesar y entregar tu compra y para contactarte por tu pedido.",
+      "Los pagos se procesan a través de Mercado Pago; no almacenamos los datos de tu tarjeta. La gestión de cuentas y pedidos se realiza sobre servicios de Google Firebase.",
+      "No vendemos ni cedemos tus datos a terceros con fines comerciales. Sólo compartimos la información necesaria con los proveedores de pago y de envío para completar tu compra.",
+      "Usamos el almacenamiento local del navegador para recordar tu carrito y el progreso de la compra. No se utiliza con fines publicitarios.",
+      "Podés solicitar el acceso, la corrección o la eliminación de tus datos escribiéndonos desde la sección Contacto."
+    ]
   }
 };
 

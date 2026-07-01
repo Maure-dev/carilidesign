@@ -114,6 +114,17 @@ function renderPreview(kind: AdminContentKindType, doc: AdminContentDocType) {
       </div>
     );
   }
+  if (kind === "seo") {
+    return (
+      <div className="flex flex-col gap-1 p-8">
+        <span className="text-xs text-ink-soft">carilidesign.vercel.app</span>
+        <span className="text-lg text-clay-deep">{doc.seoTitle || "Carili Design"}</span>
+        <span className="text-sm text-ink-soft">
+          {doc.seoDescription || "Sin descripción cargada."}
+        </span>
+      </div>
+    );
+  }
   return (
     <div className="flex flex-col gap-2 p-8 text-sm">
       <h2 className="font-display text-lg text-ink">Opciones de envío</h2>

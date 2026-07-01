@@ -3,6 +3,7 @@ import type {
   AdminContentDocType,
   AdminMessageType,
   AdminOrderType,
+  AdminUserType,
   ProductDraftType
 } from "@app/modules/admin/entities/entities";
 import axios from "axios";
@@ -108,4 +109,19 @@ export async function listMessages(): Promise<AdminMessageType[]> {
 export async function markMessageRead(id: string): Promise<void> {
   const database = requireDb();
   await updateDoc(doc(database, "contactMessages", id), { read: true });
+}
+
+export async function listUsers(idToken: string): Promise<AdminUserType[]> {
+  const res = await axios.get<{ users: AdminUserType[] }>("/api/admin/users", {
+    headers: { Authorization: `Bearer ${idToken}` }
+  });
+  return res.data.users;
+}
+
+export async function setUserRole(uid: string, admin: boolean, idToken: string): Promise<void> {
+  await axios.post(
+    "/api/admin/set-role",
+    { uid: uid, admin: admin },
+    { headers: { Authorization: `Bearer ${idToken}` } }
+  );
 }

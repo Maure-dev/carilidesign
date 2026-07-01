@@ -22,6 +22,7 @@ export const EMPTY_DRAFT: ProductDraftType = {
 export const CONTENT_SECTIONS: AdminContentSectionType[] = [
   { slug: "home", label: "Inicio", kind: "home" },
   { slug: "settings", label: "Marca / General", kind: "brand" },
+  { slug: "seo", label: "SEO / Metadatos", kind: "seo" },
   { slug: "about", label: "Nosotros", kind: "page" },
   { slug: "materials", label: "Materiales y proceso", kind: "page" },
   { slug: "install", label: "¿Cómo la instalo?", kind: "page" },
@@ -45,6 +46,7 @@ export const INITIAL_STATE = {
     orders: [],
     contentSlug: "home",
     contentDoc: {},
-    messages: []
+    messages: [],
+    users: []
   } satisfies AdminDataType
 };

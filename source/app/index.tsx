@@ -21,6 +21,7 @@ import AdminProductsModule from "@app/modules/admin/adminProductsModule";
 import AdminOrdersModule from "@app/modules/admin/adminOrdersModule";
 import AdminContentModule from "@app/modules/admin/adminContentModule";
 import AdminMessagesModule from "@app/modules/admin/adminMessagesModule";
+import AdminUsersModule from "@app/modules/admin/adminUsersModule";
 import ContactModuleProvider from "@app/modules/contact/contactModuleProvider";
 import RequireAuthInterface from "@app/modules/main/interfaces/requireAuthInterface";
 import ComingSoonInterface from "@app/modules/main/interfaces/comingSoonInterface";
@@ -76,6 +77,7 @@ ReactDOM.createRoot(rootEl).render(
             <Route path="pedidos" element={<AdminOrdersModule />} />
             <Route path="contenido" element={<AdminContentModule />} />
             <Route path="mensajes" element={<AdminMessagesModule />} />
+            <Route path="usuarios" element={<AdminUsersModule />} />
           </Route>
         </Route>
       </Route>

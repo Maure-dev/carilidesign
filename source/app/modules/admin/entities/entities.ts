@@ -41,7 +41,15 @@ export type AdminContentKindType =
   | "payment"
   | "shipping"
   | "brand"
-  | "social";
+  | "social"
+  | "seo";
+
+export type AdminUserType = {
+  uid: string;
+  email: string | null;
+  displayName: string | null;
+  isAdmin: boolean;
+};
 
 export type AdminContentSectionType = {
   slug: string;
@@ -92,6 +100,10 @@ export type AdminContentDocType = {
   facebook?: string;
   tiktok?: string;
   youtube?: string;
+  // seo / metadatos
+  seoTitle?: string;
+  seoDescription?: string;
+  seoImageUrl?: string;
 };
 
 export type AdminMessageType = {
@@ -112,6 +124,7 @@ export type AdminDataType = {
   contentSlug: string;
   contentDoc: AdminContentDocType;
   messages: AdminMessageType[];
+  users: AdminUserType[];
 };
 
 export type AdminContextType = {

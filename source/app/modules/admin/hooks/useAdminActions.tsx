@@ -13,9 +13,11 @@ import {
   listAllOrders,
   listAllProducts,
   listMessages,
+  listUsers,
   markMessageRead,
   saveContentDoc,
   saveProduct,
+  setUserRole,
   transitionOrder
 } from "@app/modules/admin/services/services";
 
@@ -249,6 +251,27 @@ export const useAdminActions = () => {
     }
   };
 
+  const handleLoadUsers = async (): Promise<void> => {
+    setAdminState((s) => ({ ...s, loading: true }));
+    try {
+      const users = await listUsers(await getIdToken());
+      setAdminState((s) => ({ ...s, users: users, loading: false }));
+    } catch {
+      onNotification(false, "No se pudieron cargar los usuarios.");
+      setAdminState((s) => ({ ...s, loading: false }));
+    }
+  };
+
+  const handleSetRole = async (uid: string, admin: boolean): Promise<void> => {
+    try {
+      await setUserRole(uid, admin, await getIdToken());
+      onNotification(true, admin ? "Rol admin asignado." : "Rol admin quitado.");
+      await handleLoadUsers();
+    } catch {
+      onNotification(false, "No se pudo cambiar el rol.");
+    }
+  };
+
   return {
     handleLoadProducts,
     handleNewDraft,
@@ -269,6 +292,8 @@ export const useAdminActions = () => {
     handleChangeContentDoc,
     handleSaveContent,
     handleLoadMessages,
-    handleMarkRead
+    handleMarkRead,
+    handleLoadUsers,
+    handleSetRole
   };
 };

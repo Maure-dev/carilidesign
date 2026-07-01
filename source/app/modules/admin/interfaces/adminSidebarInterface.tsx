@@ -1,5 +1,5 @@
 import { NavLink } from "react-router";
-import { ClipboardList, FileText, LayoutDashboard, Mail, Package } from "lucide-react";
+import { ClipboardList, FileText, LayoutDashboard, Mail, Package, Users } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import LogoInterface from "@app/modules/main/interfaces/logoInterface";
 import IconInterface from "@app/modules/main/interfaces/iconInterface";
@@ -12,7 +12,8 @@ export const ADMIN_NAV: AdminNavItem[] = [
   { to: "/admin/productos", label: "Productos", icon: Package },
   { to: "/admin/pedidos", label: "Pedidos", icon: ClipboardList },
   { to: "/admin/contenido", label: "Contenido", icon: FileText },
-  { to: "/admin/mensajes", label: "Mensajes", icon: Mail }
+  { to: "/admin/mensajes", label: "Mensajes", icon: Mail },
+  { to: "/admin/usuarios", label: "Usuarios", icon: Users }
 ];
 
 export default function AdminSidebarInterface() {

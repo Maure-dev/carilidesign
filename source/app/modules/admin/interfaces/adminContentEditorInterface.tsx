@@ -479,12 +479,40 @@ function SocialForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Pro
   );
 }
 
+function SeoForm({ doc, onChange }: { doc: AdminContentDocType; onChange: Props["onChange"] }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <Field
+        label="Título base"
+        value={doc.seoTitle ?? ""}
+        placeholder="Carili Design"
+        onChange={(v) => onChange({ seoTitle: v })}
+      />
+      <Field
+        label="Descripción (meta description / redes)"
+        value={doc.seoDescription ?? ""}
+        multiline
+        placeholder="Bachas de baño artesanales de cerámica, hechas a mano en Argentina."
+        onChange={(v) => onChange({ seoDescription: v })}
+      />
+      <Field
+        label="Imagen para compartir (OG image, URL)"
+        value={doc.seoImageUrl ?? ""}
+        onChange={(v) => onChange({ seoImageUrl: v })}
+      />
+    </div>
+  );
+}
+
 function renderForm(
   kind: AdminContentKindType,
   doc: AdminContentDocType,
   onChange: Props["onChange"],
   onUpload: UploadImageType
 ) {
+  if (kind === "seo") {
+    return <SeoForm doc={doc} onChange={onChange} />;
+  }
   if (kind === "home") {
     return <HomeForm doc={doc} onChange={onChange} onUpload={onUpload} />;
   }
