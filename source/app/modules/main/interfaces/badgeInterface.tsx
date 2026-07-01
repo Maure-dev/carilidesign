@@ -17,7 +17,7 @@ const TONE = {
 // Etiqueta/badge (p. ej. "Hecho a mano", "Pieza única").
 export default function BadgeInterface({ children, tone = "sand" }: Props) {
   return (
-    <span className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${TONE[tone]}`}>
+    <span className={`inline-block rounded-full px-3 py-1 text-xs font-semibold w-fit ${TONE[tone]}`}>
       {children}
     </span>
   );
