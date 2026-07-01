@@ -13,6 +13,9 @@ source/coverage/
 !.env.example
 !source/.env.test
 
+# Vercel
+.vercel
+
 # Tooling local de Claude Code
 .claude
 
